@@ -111,7 +111,7 @@ public class User extends AbstractPasswordHasher implements Serializable {
      * @param allUsers  List of all users in the system
      * @return The authenticated User object if successful, null otherwise
      */
-    public static User login(String loginId, String password, ArrayList<User> allUsers, Scanner scanner) {
+    public static User login(String loginId, String password, ArrayList<User> allUsers) {
         // Loop all users
         for (User u : allUsers) {
             if (loginId.equals(u.getId())) {
@@ -119,7 +119,7 @@ public class User extends AbstractPasswordHasher implements Serializable {
                     // First Login must change password
                     if (u.getFirstLogin()) {
                         System.out.println("This is your first time logging in");
-                        u.changePassword(password, scanner);
+                        u.changePassword(password);
                         u.setFirstLoginFalse();
                     }
                     System.out.println("Successful login!");
@@ -138,7 +138,12 @@ public class User extends AbstractPasswordHasher implements Serializable {
      * @param oldPassword The current password for verification
      * @return true if password was successfully changed, false otherwise
      */
-    public boolean changePassword(String oldPassword, Scanner scanner) {
+    public boolean changePassword(String oldPassword) {
+        // Get the scanner instance
+        HMSInput input = HMSInput.getInstance();
+        // Get the scanner
+        Scanner scanner = input.getScanner();
+        
         if (verifyPassword(oldPassword,this.password)) {
             String newPassword;
             String newPassword2;

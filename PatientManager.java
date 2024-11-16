@@ -8,26 +8,16 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class PatientMenu implements IMenu, IViewMedicalRecord{
-
-    @Override
-    public void display() {
-        System.out.println("----PATIENT MENU----");
-        System.out.println("1. View Medical Record");
-        System.out.println("2. Update Personal Information");
-        System.out.println("3. View Available Appointment Slots");
-        System.out.println("4. Schedule an Appointment");
-        System.out.println("5. Reschedule an Appointment");
-        System.out.println("6. Cancel an Appointment");
-        System.out.println("7. View Scheduled Appointments");
-        System.out.println("8. View Past Appointment Outcome Records");
-        System.out.println("9. Logout");
-    }
+public class PatientManager implements IViewMedicalRecord{
+    // Use database singleton
+    private final HMSDatabase db = HMSDatabase.getInstance();
+    // Use scanner singleton
+    private final Scanner scanner = HMSInput.getInstance().getScanner();
 
     public void viewMedicalRecord(User p) {
         System.out.println("----YOUR MEDICAL RECORD----");
         ((Patient) p).print();
-        ArrayList<MedicalRecord> medRecords = HMS.allMedicalRecords.getOrDefault(((Patient) p).getId(), null);
+        ArrayList<MedicalRecord> medRecords = db.getAllMedicalRecords().getOrDefault(((Patient) p).getId(), null);
         if (medRecords == null || medRecords.isEmpty()) {
             System.out.println("You have no medical history");
         }
@@ -37,7 +27,7 @@ public class PatientMenu implements IMenu, IViewMedicalRecord{
             }
         }
     }
-    public void updateContactDetails(Patient p, Scanner scanner) {
+    public void updateContactDetails(Patient p) {
         System.out.println("Enter your new email address:");
         String email = scanner.nextLine();
         System.out.println("Enter your new contact number:");
@@ -49,7 +39,7 @@ public class PatientMenu implements IMenu, IViewMedicalRecord{
     }
 
     public void viewAppointmentSlots() {
-        List<Appointment> openAppointments = HMS.allAppointments
+        List<Appointment> openAppointments = db.getAllAppointments()
             .stream()
             .filter(a -> a.getAppointmentStatus().equals(Appointment.AppointmentStatus.OPEN))
             .collect(Collectors.toList());
@@ -67,7 +57,7 @@ public class PatientMenu implements IMenu, IViewMedicalRecord{
         }
     }
 
-    public void scheduleAppointment(Patient p, Scanner scanner) {
+    public void scheduleAppointment(Patient p) {
         // Choose doctor
         System.out.println("Which doctor do you want to schedule with? (id):");
         String doctorId = scanner.nextLine();
@@ -104,7 +94,7 @@ public class PatientMenu implements IMenu, IViewMedicalRecord{
         final LocalTime finalParsedTime = parsedTime;
 
         // Find slot
-        Appointment appointment = HMS.allAppointments
+        Appointment appointment = db.getAllAppointments()
         .stream()
         .filter(a -> 
             a.getAppointmentStatus().equals(Appointment.AppointmentStatus.OPEN) 
@@ -124,7 +114,7 @@ public class PatientMenu implements IMenu, IViewMedicalRecord{
         }
     }
 
-    public boolean cancelAppointment(Patient p, Scanner scanner) {
+    public boolean cancelAppointment(Patient p) {
         // Choose doctor
         System.out.println("Which doctor did you schedule your appointment with? (id):");
         String doctorId = scanner.nextLine();
@@ -161,7 +151,7 @@ public class PatientMenu implements IMenu, IViewMedicalRecord{
         final LocalTime finalParsedTime = parsedTime;
 
         // Find scheduled appointment
-        Appointment appointment = HMS.allAppointments
+        Appointment appointment = db.getAllAppointments()
             .stream()
             .filter(a -> 
                 Objects.equals(a.getPatientId(), p.getId()) 
@@ -185,7 +175,7 @@ public class PatientMenu implements IMenu, IViewMedicalRecord{
     }
 
     public void viewScheduledAppointments(User p) {
-        List<Appointment> scheduledAppointments = HMS.allAppointments
+        List<Appointment> scheduledAppointments = db.getAllAppointments()
             .stream()
             .filter(a -> 
                 a.getPatientId().equals(((Patient) p).getId())
@@ -206,7 +196,7 @@ public class PatientMenu implements IMenu, IViewMedicalRecord{
     }
 
     public void viewAppointmentOutcomeRecords(Patient p) {
-        List<Appointment> completedAppointments = HMS.allAppointments
+        List<Appointment> completedAppointments = db.getAllAppointments()
             .stream()
             .filter(a -> 
                 a.getPatientId().equals(p.getId())
@@ -219,8 +209,8 @@ public class PatientMenu implements IMenu, IViewMedicalRecord{
         else {
             System.out.println("----YOUR APPOINTMENT OUTCOMES----");
             for (Appointment a : completedAppointments) {
-                AppointmentOutcome ao = HMS.allAppointmentOutcomes.get(a.getAppointmentId());
-                ArrayList<Prescription> pList = HMS.allPrescriptions.get(a.getAppointmentId());
+                AppointmentOutcome ao = db.getAllAppointmentOutcomes().get(a.getAppointmentId());
+                ArrayList<Prescription> pList = db.getAllPrescriptions().get(a.getAppointmentId());
 
                 System.out.println(ao.getOutcomeDateTime());
                 System.out.println("Services Provided: " + ao.getServicesProvided());

@@ -1,25 +1,22 @@
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class HMSMenu implements IMenu{
-    
-    @Override
-    public void display() {
-        System.out.println("----HMS MENU----");
-        System.out.println("1. Login");
-        System.out.println("2. Exit");
-    }
+public class HMSManager{
+    // Use database singleton
+    private final HMSDatabase db = HMSDatabase.getInstance();
+    // Use scanner singleton
+    private final Scanner scanner = HMSInput.getInstance().getScanner();
+
 
     // Login a user to the HMS
-    public User login(ArrayList<User> allUsers, Scanner scanner) {
+    public User login() {
         User currentUser;
         while(true) {
             System.out.println("Enter your login id: ");
             String loginId = scanner.nextLine();
             System.out.println("Enter your password: ");
             String password = scanner.nextLine();
-            currentUser = User.login(loginId, password, allUsers, scanner);
+            currentUser = User.login(loginId, password, db.getAllUsers());
             if (!Objects.isNull(currentUser)) {
                 return currentUser;
             }

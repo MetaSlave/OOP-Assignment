@@ -8,8 +8,12 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppointments, ICheckMedicineExists {
-
+public class DoctorManager implements IMenu, IViewMedicalRecord, IViewScheduledAppointments, ICheckMedicineExists {
+    // Use database singleton
+    private final HMSDatabase db = HMSDatabase.getInstance();
+    // Use scanner singleton
+    private final Scanner scanner = HMSInput.getInstance().getScanner();
+    
     @Override
     public void display() {
         System.out.println("----DOCTOR MENU----");
@@ -25,7 +29,7 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
 
     public void viewMedicalRecord(User d) {
         // Get all patients associated with doctor
-        List<String> patientIds = HMS.allAppointments.stream()
+        List<String> patientIds = db.getAllAppointments().stream()
             .filter(a -> 
             a.getDoctorId().equals(((Doctor) d).getId())) 
             .map(a -> a.getPatientId())
@@ -37,7 +41,7 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
         }
         else {
             // Get patient objects from patientId
-            List<Patient> patients = HMS.allUsers.stream()
+            List<Patient> patients = db.getAllUsers().stream()
                 .filter(user -> patientIds.contains(user.getId()))
                 .map(user -> (Patient) user)
                 .collect(Collectors.toList());
@@ -46,7 +50,7 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
             // Print each patient details
             for (Patient p : patients) {
                 p.print();
-                ArrayList<MedicalRecord> medRecords = HMS.allMedicalRecords.getOrDefault(p.getId(), null);
+                ArrayList<MedicalRecord> medRecords = db.getAllMedicalRecords().getOrDefault(p.getId(), null);
                 if (medRecords == null) {
                     System.out.println("Patient has no medical history");
                 }
@@ -60,14 +64,14 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
         }
     }
     
-    public void updateMedicalRecord(Doctor d, Scanner scanner) {
+    public void updateMedicalRecord(Doctor d) {
         // Update medical records (basically create a new record)
         // Choose patientId
         System.out.println("For which patient do you want to update records? (patient id):");
         String patientId = scanner.nextLine();
 
         // Find patient from patientId from allUsers
-        Patient patient = (Patient) HMS.allUsers.stream()
+        Patient patient = (Patient) db.getAllUsers().stream()
             .filter(user -> user.getId().equals(patientId))
             .findFirst()
             .orElse(null);
@@ -76,7 +80,7 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
             System.out.println("Patient does not exist");
         }
         else {
-            Appointment appointment = HMS.allAppointments.stream()
+            Appointment appointment = db.getAllAppointments().stream()
                 .filter(a -> a.getDoctorId().equals(d.getId()) && a.getPatientId().equals(patientId))
                 .findFirst()
                 .orElse(null);
@@ -91,7 +95,7 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
                 String treatment = scanner.nextLine();
 
                 MedicalRecord newMedicalRecord = MedicalRecord.createRecord(patientId, diagnosis, treatment);
-                HMS.allMedicalRecords.computeIfAbsent(patientId, k -> new ArrayList<>()).add(newMedicalRecord);
+                db.getAllMedicalRecords().computeIfAbsent(patientId, k -> new ArrayList<>()).add(newMedicalRecord);
 
                 System.out.println("Medical record successfully updated");
             }
@@ -100,9 +104,11 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
     
     public void viewPersonalSchedule(Doctor d) {
         // View appointment slots (both confirmed and not confirmed)
-        List<Appointment> doctorAppointments = HMS.allAppointments
+        List<Appointment> doctorAppointments = db.getAllAppointments()
             .stream()
-            .filter(a -> a.getDoctorId().equals(d.getId()))
+            .filter(a -> 
+                a.getDoctorId().equals(d.getId())
+                && !a.getAppointmentStatus().equals(Appointment.AppointmentStatus.COMPLETED))
             .collect(Collectors.toList());
 
         if (doctorAppointments.isEmpty()) {
@@ -118,7 +124,7 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
         }
     }
     
-    public void createNewAppointment(Doctor d, Scanner scanner) {
+    public void createNewAppointment(Doctor d) {
         // Create new appointment
         // Choose date
         String date;
@@ -159,7 +165,7 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
         final LocalTime finalParsedTime = parsedTime;
 
         // Find if appointment already exists
-        boolean alreadyExists = HMS.allAppointments
+        boolean alreadyExists = db.getAllAppointments()
             .stream()
             .filter(a -> a.getDoctorId().equals(d.getId()) 
                 && a.getAppointmentDate().equals(finalParsedDate) 
@@ -168,19 +174,19 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
             .isPresent();
         
         if (alreadyExists) {
-            System.out.println("You already haven an exisitng appointment slot at that time");
+            System.out.println("You already have an existing appointment slot at that time");
         }
         else {
             // Create new slot and add to allAppointments
-            HMS.allAppointments.add(Appointment.createSlot(d, parsedDate, parsedTime));
+            db.getAllAppointments().add(Appointment.createSlot(d, parsedDate, parsedTime));
             System.out.println("Appointment slot successfully created.");
         }
     }
     
-    public void acceptOrDeclineAppointmentRequests(Doctor d, Scanner scanner) {
+    public void acceptOrDeclineAppointmentRequests(Doctor d) {
         // Accept or decline appointment requests
         // Get appointments that are pending and belong to doctor
-        List<Appointment> pendingAppointments = HMS.allAppointments
+        List<Appointment> pendingAppointments = db.getAllAppointments()
             .stream()
             .filter(a -> a.getDoctorId().equals(d.getId())
                 && a.getAppointmentStatus().equals(Appointment.AppointmentStatus.PENDING))
@@ -222,7 +228,7 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
     
     public void viewScheduledAppointments(User d) {
         // View appointment slots (confirmed only)
-        List<Appointment> confirmedAppointments = HMS.allAppointments
+        List<Appointment> confirmedAppointments = db.getAllAppointments()
             .stream()
             .filter(a -> a.getDoctorId().equals(((Doctor) d).getId()) && a.getAppointmentStatus().equals(Appointment.AppointmentStatus.SCHEDULED))
             .collect(Collectors.toList());
@@ -238,7 +244,7 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
         }
     }
     
-    public void recordAppointmentOutcome(Doctor d, Scanner scanner) {
+    public void recordAppointmentOutcome(Doctor d) {
         // Record Appointment Outcome
         // Choose date
         String date;
@@ -260,9 +266,9 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
         while (true) {
             try {
                 // Choose slot
-                System.out.println("Which timeslot is the appointment on? (HH/mm):");
+                System.out.println("Which timeslot is the appointment on? (HH:mm):");
                 time = scanner.nextLine();
-                parsedTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH/mm"));
+                parsedTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
                 break;
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid time format. Please use HH:mm (e.g., 14:30)");
@@ -273,7 +279,7 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
         final LocalTime finalParsedTime = parsedTime;
 
         // Find Appointment
-        Appointment appointment = HMS.allAppointments
+        Appointment appointment = db.getAllAppointments()
         .stream()
         .filter(a -> a.getDoctorId().equals(d.getId()) 
             && a.getAppointmentDate().equals(finalParsedDate) 
@@ -316,11 +322,11 @@ public class DoctorMenu implements IMenu, IViewMedicalRecord, IViewScheduledAppo
         String consultationNotes = scanner.nextLine();
 
         // Create new appointment outcome
-        HMS.allAppointmentOutcomes.put(appointment.getAppointmentId(), AppointmentOutcome.createOutcome(appointment, servicesProvided, consultationNotes));
+        db.getAllAppointmentOutcomes().put(appointment.getAppointmentId(), AppointmentOutcome.createOutcome(appointment, servicesProvided, consultationNotes));
         
         // Associate all prescriptions in list to appointment
         for (Prescription prescription : prescribedMedicationsList) {
-            HMS.allPrescriptions.computeIfAbsent(appointment.getAppointmentId(), k -> new ArrayList<>()).add(prescription);
+            db.getAllPrescriptions().computeIfAbsent(appointment.getAppointmentId(), k -> new ArrayList<>()).add(prescription);
         }
 
         // Set appointment to completed

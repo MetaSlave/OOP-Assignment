@@ -3,19 +3,15 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class PharmacistMenu implements IMenu, IViewMedicineInventory, ICheckMedicineExists{
-    public void display() {
-        System.out.println("----PHARMACIST MENU----");
-        System.out.println("1. View Appointment Outcome Records");
-        System.out.println("2. Update Prescription Status");
-        System.out.println("3. View Medication Inventory");
-        System.out.println("4. Submit Replenishment Request");
-        System.out.println("5. Logout");
-    }
+public class PharmacistManager implements IViewMedicineInventory, ICheckMedicineExists{
+    // Use database singleton
+    private final HMSDatabase db = HMSDatabase.getInstance();
+    // Use scanner singleton
+    private final Scanner scanner = HMSInput.getInstance().getScanner();
 
     public void viewAppointmentOutcomeRecords() {
         // View appointment outcome records
-        List<Appointment> completedAppointments = HMS.allAppointments
+        List<Appointment> completedAppointments = db.getAllAppointments()
             .stream()
             .filter(a -> 
                 a.getAppointmentStatus().equals(Appointment.AppointmentStatus.COMPLETED))
@@ -27,8 +23,8 @@ public class PharmacistMenu implements IMenu, IViewMedicineInventory, ICheckMedi
         else {
             System.out.println("----APPOINTMENT OUTCOMES----");
             for (Appointment a : completedAppointments) {
-                AppointmentOutcome ao = HMS.allAppointmentOutcomes.get(a.getAppointmentId());
-                ArrayList<Prescription> pList = HMS.allPrescriptions.get(a.getAppointmentId());
+                AppointmentOutcome ao = db.getAllAppointmentOutcomes().get(a.getAppointmentId());
+                ArrayList<Prescription> pList = db.getAllPrescriptions().get(a.getAppointmentId());
                 System.out.println(ao.getOutcomeDateTime());
                 System.out.println("Services Provided: " + ao.getServicesProvided());
                 System.out.println("Prescriptions: ");
@@ -40,10 +36,10 @@ public class PharmacistMenu implements IMenu, IViewMedicineInventory, ICheckMedi
         }
     }
 
-    public void updatePrescriptionStatus(Scanner scanner) {
+    public void updatePrescriptionStatus() {
         // Update prescription status
         while (true) {
-            List<Prescription> pendingPrescriptions = HMS.allPrescriptions.values()
+            List<Prescription> pendingPrescriptions = db.getAllPrescriptions().values()
                 .stream()
                 .flatMap(List::stream)
                 .filter(p -> p.getStatus().equals(Prescription.Status.PENDING))
@@ -83,7 +79,7 @@ public class PharmacistMenu implements IMenu, IViewMedicineInventory, ICheckMedi
         
     }
     
-    public void createReplenishmentRequest(Pharmacist ph, Scanner scanner) {
+    public void createReplenishmentRequest(Pharmacist ph) {
         // Create replenishment request
         // Input medicine name and check if it exists
         System.out.println("Which medicine do you want to submit a request for?:");
@@ -96,14 +92,14 @@ public class PharmacistMenu implements IMenu, IViewMedicineInventory, ICheckMedi
         }
 
         // Check if low stock level
-        if (HMS.allMedicines.get(medicine).checkStockLevel()) {
+        if (db.getAllMedicines().get(medicine).checkStockLevel()) {
             // If it does exist
             System.out.println("How many units of " + medicine + " do you want to replenish?:");
             int replenishAmount = scanner.nextInt();
 
             // Add
             ReplenishmentRequest newRequest = ReplenishmentRequest.createReplenishmentRequest(ph.getId(), medicine, replenishAmount);
-            HMS.allReplenishmentRequests.add(newRequest);
+            db.getAllReplenishmentRequests().add(newRequest);
         }
         else {
             System.out.println("This medicine does not have low stock level");
@@ -112,10 +108,10 @@ public class PharmacistMenu implements IMenu, IViewMedicineInventory, ICheckMedi
     }
 
     public void chargePrescriptions(Prescription prescription) {
-        Medicine medicine = HMS.allMedicines.get(prescription.getMedication());
+        Medicine medicine = db.getAllMedicines().get(prescription.getMedication());
         double cost = medicine.getMedicineCost() * prescription.getQuantity();
         
-        AppointmentOutcome appointmentOutcome = HMS.allAppointmentOutcomes.get(prescription.getAppointmentId());
+        AppointmentOutcome appointmentOutcome = db.getAllAppointmentOutcomes().get(prescription.getAppointmentId());
         
         // Use up medicine, set cost of appointment and set prescriptionStatus to dispensed
         medicine.decreaseStock(prescription.getQuantity());

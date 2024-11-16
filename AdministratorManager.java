@@ -2,53 +2,21 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class AdministratorMenu implements IMenu, ICheckMedicineExists, IViewMedicineInventory{
-    public void display() {
-        System.out.println("----ADMINISTRATOR MENU----");
-        System.out.println("1. View and Manage Hospital Staff");
-        System.out.println("2. View Appointments Details");
-        System.out.println("3. View and Manage Medication Inventory");
-        System.out.println("4. Approve Replenishment Requests");
-        System.out.println("5. Logout");
-    }
-
-    public void viewAndManageHospitalStaff(Scanner scanner) {
-        AdministratorManageStaffMenu newAdminManageStaffMenu = new AdministratorManageStaffMenu();
-        while (true) {
-            newAdminManageStaffMenu.display();
-            System.out.print("Enter your choice: ");
-            int subChoice = scanner.nextInt();
-            scanner.nextLine();
-            switch(subChoice) {
-                case 1:
-                    newAdminManageStaffMenu.addNewStaff(scanner);
-                    break;
-                case 2:
-                    newAdminManageStaffMenu.updateStaffDetails(scanner);
-                    break;
-                case 3:
-                    newAdminManageStaffMenu.removeStaff(scanner);
-                    break;
-                case 4:
-                    
-                    return;
-                default:
-                    System.out.println("Invalid choice");
-                    break;
-
-            }
-        }
-    }
+public class AdministratorManager implements ICheckMedicineExists, IViewMedicineInventory{
+    // Use database singleton
+    private final HMSDatabase db = HMSDatabase.getInstance();
+    // Use scanner singleton
+    private final Scanner scanner = HMSInput.getInstance().getScanner();
 
     public void viewAppointmentDetails() {
         // View all appointment details
         System.out.println("\n----APPOINTMENTS DETAILS----");
-        for (Appointment appointment : HMS.allAppointments) {
+        for (Appointment appointment : db.getAllAppointments()) {
             appointment.print();
         }
     }
 
-    public void viewAndManageMedicationInventory(Scanner scanner) {
+    public void viewAndManageMedicationInventory() {
         // View and Manage Medication Inventory
         viewMedicineInventory();
         System.out.print("Enter a medicine name to update low stock alert level: ");
@@ -64,17 +32,17 @@ public class AdministratorMenu implements IMenu, ICheckMedicineExists, IViewMedi
         System.out.print("Enter new low stock alert level: ");
         int newAlertLevel = scanner.nextInt();
 
-        Medicine medicineToUpdate = HMS.allMedicines.get(medicine);
+        Medicine medicineToUpdate = db.getAllMedicines().get(medicine);
         medicineToUpdate.setAlertLevel(newAlertLevel);
         System.out.print("Alert level for " + medicine + " sucessfully updated to " + newAlertLevel);
         
     }
 
-    public void approveReplenishmentRequests(Scanner scanner) {
+    public void approveReplenishmentRequests() {
         // Approve Replenishment Requests
         while (true) {
             // Get all not approved replenishment requests
-            List<ReplenishmentRequest> pendingRequests = HMS.allReplenishmentRequests
+            List<ReplenishmentRequest> pendingRequests = db.getAllReplenishmentRequests()
                 .stream()
                 .filter(r -> r.getStatus().equals(ReplenishmentRequest.ReplenishmentRequestStatus.PENDING))
                 .collect(Collectors.toList());
@@ -114,7 +82,7 @@ public class AdministratorMenu implements IMenu, ICheckMedicineExists, IViewMedi
                 // Replenish medicine amount
                 String medicineName = selectedRequest.getMedicineName();
                 int replenishAmount = selectedRequest.getRequestAmount();
-                Medicine foundMedicine = HMS.allMedicines.get(medicineName);
+                Medicine foundMedicine = db.getAllMedicines().get(medicineName);
                 foundMedicine.replenishStock(replenishAmount);
                 System.out.println("Stock for " + medicineName + " has been replenished with " + replenishAmount + " units");
             }

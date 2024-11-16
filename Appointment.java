@@ -16,7 +16,6 @@ public class Appointment implements Serializable {
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;
     private AppointmentStatus appointmentStatus;
-    private double appointmentCost;
 
     /**
      * Enumeration of possible appointment statuses.
@@ -45,7 +44,6 @@ public class Appointment implements Serializable {
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
         this.appointmentStatus = AppointmentStatus.OPEN;
-        this.appointmentCost = 0.0;
     }
 
     /**
