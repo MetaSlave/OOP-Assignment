@@ -57,10 +57,17 @@ public class PharmacistManager implements IViewMedicineInventory, ICheckMedicine
                 pendingPrescriptions.get(i).print();
             }
 
-            System.out.print("Enter prescription number to dispense (1-" + pendingPrescriptions.size() + ", 0 to quit): ");
-            int prescriptionNum = scanner.nextInt();
-            scanner.nextLine();
-
+            int prescriptionNum;
+            while (true) {
+                try {
+                    System.out.print("Enter prescription number to dispense (1-" + pendingPrescriptions.size() + ", 0 to quit): ");
+                    String enteredChoice = scanner.nextLine();
+                    prescriptionNum = Integer.parseInt(enteredChoice);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid choice");
+                }
+            }
             // Exit
             if (prescriptionNum == 0) {
                 break;
@@ -87,15 +94,23 @@ public class PharmacistManager implements IViewMedicineInventory, ICheckMedicine
 
         // Check if medicine exists
         if (!checkMedicineExists(medicine)) {
-            
             return;
         }
 
         // Check if low stock level
         if (db.getAllMedicines().get(medicine).checkStockLevel()) {
             // If it does exist
-            System.out.println("How many units of " + medicine + " do you want to replenish?:");
-            int replenishAmount = scanner.nextInt();
+            int replenishAmount;
+            while (true) {
+                try {
+                    System.out.println("How many units of " + medicine + " do you want to replenish?:");
+                    String enteredChoice = scanner.nextLine();
+                    replenishAmount = Integer.parseInt(enteredChoice);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid choice");
+                }
+            }
 
             // Add
             ReplenishmentRequest newRequest = ReplenishmentRequest.createReplenishmentRequest(ph.getId(), medicine, replenishAmount);

@@ -95,17 +95,18 @@ public class PatientManager implements IViewMedicalRecord{
 
         // Find slot
         Appointment appointment = db.getAllAppointments()
-        .stream()
-        .filter(a -> 
-            a.getAppointmentStatus().equals(Appointment.AppointmentStatus.OPEN) 
-            && a.getDoctorId().equals(doctorId) 
-            && a.getAppointmentDate().equals(finalParsedDate) 
-            && a.getAppointmentTime().equals(finalParsedTime))
-        .findFirst()
-        .orElse(null);
+            .stream()
+            .filter(a -> 
+                a.getAppointmentStatus().equals(Appointment.AppointmentStatus.OPEN) 
+                && a.getDoctorId().equals(doctorId) 
+                && a.getAppointmentDate().equals(finalParsedDate) 
+                && a.getAppointmentTime().equals(finalParsedTime))
+            .findFirst()
+            .orElse(null);
 
         if (appointment == null) {
             System.out.println("No appointment slot found for this doctor");
+            return;
         }
         else {
             // Schedule slot
@@ -178,8 +179,10 @@ public class PatientManager implements IViewMedicalRecord{
         List<Appointment> scheduledAppointments = db.getAllAppointments()
             .stream()
             .filter(a -> 
-                a.getPatientId().equals(((Patient) p).getId())
-                && a.getAppointmentStatus().equals(Appointment.AppointmentStatus.SCHEDULED))
+                !Objects.isNull(a.getPatientId())
+                && Objects.equals(a.getPatientId(), p.getId())
+                && (a.getAppointmentStatus().equals(Appointment.AppointmentStatus.SCHEDULED)
+                || a.getAppointmentStatus().equals(Appointment.AppointmentStatus.PENDING)))
             .collect(Collectors.toList());
     
         if (scheduledAppointments.isEmpty()) {
@@ -199,7 +202,8 @@ public class PatientManager implements IViewMedicalRecord{
         List<Appointment> completedAppointments = db.getAllAppointments()
             .stream()
             .filter(a -> 
-                a.getPatientId().equals(p.getId())
+                !Objects.isNull(a.getPatientId())
+                && Objects.equals(a.getPatientId(), p.getId())
                 && a.getAppointmentStatus().equals(Appointment.AppointmentStatus.COMPLETED))
             .collect(Collectors.toList());
 

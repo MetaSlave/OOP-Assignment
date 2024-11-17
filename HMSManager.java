@@ -17,9 +17,7 @@ public class HMSManager{
             System.out.println("Enter your password: ");
             String password = scanner.nextLine();
             currentUser = User.login(loginId, password, db.getAllUsers());
-            if (!Objects.isNull(currentUser)) {
-                return currentUser;
-            }
+            return currentUser;
         }
     }
 }

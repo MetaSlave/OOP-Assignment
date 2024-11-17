@@ -92,9 +92,9 @@ public class Appointment implements Serializable {
 
     /**
      * Gets the ID of the patient scheduled for this appointment.
-     * Will be null if the appointment slot is not taken.
+     * Will be empty string if the appointment slot is not taken.
      * 
-     * @return The patient's ID, or null if no patient is scheduled
+     * @return The patient's ID, or empty string if no patient is scheduled
      */
     public String getPatientId() {
         return this.patientId;

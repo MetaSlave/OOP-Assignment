@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import javax.swing.text.View;
-
 public class PatientUI implements IAuthMenu{
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();

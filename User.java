@@ -156,7 +156,7 @@ public class User extends AbstractPasswordHasher implements Serializable {
                     System.out.println("Passwords do not match");
                 }
             } while (!newPassword.equals(newPassword2));
-            this.password = newPassword;
+            this.password = hashPassword(newPassword);
             System.out.println("Password has been successfully changed!");
             return true;
         }

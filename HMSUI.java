@@ -21,13 +21,23 @@ public class HMSUI implements IDisplayOptions{
             displayOptions();
             int choice;
             User currentUser;
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            while (true) {
+                try {
+                    System.out.print("Enter your choice: ");
+                    String enteredChoice = scanner.nextLine();
+                    choice = Integer.parseInt(enteredChoice);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid choice");
+                }
+            }
             switch (choice) {
                 case 1:
                     // Login
                     currentUser = newHMSManager.login();
+                    if (currentUser == null) {
+                        break;
+                    }
 
                     // After login
                     if (currentUser.getRole().equals("Patient")) {
@@ -57,6 +67,9 @@ public class HMSUI implements IDisplayOptions{
                     break;
                 case 2:
                     programExited = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid choice");
                     break;
             }
         }

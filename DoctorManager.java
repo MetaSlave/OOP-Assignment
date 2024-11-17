@@ -217,7 +217,7 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
         // View appointment slots (confirmed only)
         List<Appointment> confirmedAppointments = db.getAllAppointments()
             .stream()
-            .filter(a -> a.getDoctorId().equals(((Doctor) d).getId()) && a.getAppointmentStatus().equals(Appointment.AppointmentStatus.SCHEDULED))
+            .filter(a -> a.getDoctorId().equals(d.getId()) && a.getAppointmentStatus().equals(Appointment.AppointmentStatus.SCHEDULED))
             .collect(Collectors.toList());
 
         if (confirmedAppointments.isEmpty()) {
@@ -276,8 +276,9 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
         .orElse(null);
         
         // If not found
-        if (!Objects.isNull(appointment)) {
+        if (Objects.isNull(appointment)) {
             System.out.println("No scheduled appointment found");
+            return;
         }
 
         // Input services provided
