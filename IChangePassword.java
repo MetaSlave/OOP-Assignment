@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public interface IChangePassword{
+public interface IChangePassword extends IPasswordHasher{
     /**
      * Allows a user to change their password after verifying their old password.
      * Prompts the user to enter the new password twice for confirmation.
@@ -16,7 +16,7 @@ public interface IChangePassword{
 
         System.out.println("Enter your old password:");
         String oldPassword = scanner.nextLine();
-        if (AbstractPasswordHasher.verifyPassword(oldPassword,u.getPassword())) {
+        if (verifyPassword(oldPassword,u.getPassword())) {
             String newPassword;
             String newPassword2;
             do {
@@ -28,7 +28,7 @@ public interface IChangePassword{
                     System.out.println("Passwords do not match");
                 }
             } while (!newPassword.equals(newPassword2));
-            u.setPassword(AbstractPasswordHasher.hashPassword(newPassword));
+            u.setPassword(hashPassword(newPassword));
             System.out.println("Password has been successfully changed!");
             return true;
         }
@@ -51,7 +51,7 @@ public interface IChangePassword{
         // Get the scanner
         Scanner scanner = input.getScanner();
 
-        if (AbstractPasswordHasher.verifyPassword(oldPassword,u.getPassword())) {
+        if (verifyPassword(oldPassword,u.getPassword())) {
             String newPassword;
             String newPassword2;
             do {
@@ -63,7 +63,7 @@ public interface IChangePassword{
                     System.out.println("Passwords do not match");
                 }
             } while (!newPassword.equals(newPassword2));
-            u.setPassword(AbstractPasswordHasher.hashPassword(newPassword));
+            u.setPassword(hashPassword(newPassword));
             System.out.println("Password has been successfully changed!");
             return true;
         }

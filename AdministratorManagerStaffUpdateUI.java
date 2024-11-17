@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class AdministratorManagerStaffUpdateUI implements IAuthMenu{
+public class AdministratorManagerStaffUpdateUI extends AbstractAuthMenu{
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
 

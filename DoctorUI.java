@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class DoctorUI implements IAuthMenu {
+public class DoctorUI extends AbstractAuthMenu {
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
 

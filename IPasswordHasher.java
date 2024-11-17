@@ -1,8 +1,8 @@
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
 
-abstract class AbstractPasswordHasher {
-    public static String hashPassword(String password) {
+public interface IPasswordHasher {
+    default String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -21,7 +21,7 @@ abstract class AbstractPasswordHasher {
         }
     }
 
-    public static boolean verifyPassword(String password, String hashedPassword) {
+    default boolean verifyPassword(String password, String hashedPassword) {
         String newHash = hashPassword(password);
         return hashedPassword.equals(newHash);
     }

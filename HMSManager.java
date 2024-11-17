@@ -1,7 +1,7 @@
 
 import java.util.Scanner;
 
-public class HMSManager extends AbstractPasswordHasher implements IChangePassword{
+public class HMSManager implements IChangePassword{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton

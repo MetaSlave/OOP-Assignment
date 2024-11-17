@@ -1,4 +1,4 @@
-import java.util.Scanner;
+
 
 public class HMS {
     public static void main(String[] args) {
