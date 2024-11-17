@@ -27,7 +27,7 @@ public class PatientManager implements IViewMedicalRecord, IChangePassword{
             }
         }
     }
-    
+
     public void updateContactDetails(Patient p) {
         System.out.println("Enter your new email address:");
         String email = scanner.nextLine();
@@ -104,7 +104,7 @@ public class PatientManager implements IViewMedicalRecord, IChangePassword{
                 && a.getAppointmentTime().equals(finalParsedTime))
             .findFirst()
             .orElse(null);
-
+        
         if (appointment == null) {
             System.out.println("No appointment slot found for this doctor");
             return;

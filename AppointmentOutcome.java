@@ -18,6 +18,7 @@ public class AppointmentOutcome implements Serializable {
     private String servicesProvided;
     private String consultationNotes;
     private double appointmentCost;
+    public static final double APPOINTMENT_BASE_COST = 20;
 
     /**
      * Constructs a new AppointmentOutcome with the specified details.
@@ -35,7 +36,7 @@ public class AppointmentOutcome implements Serializable {
         this.servicesProvided = servicesProvided;
         this.consultationNotes = consultationNotes;
         // Standard cost of appointment
-        this.appointmentCost = 20;
+        this.appointmentCost = APPOINTMENT_BASE_COST;
     }
 
     /**
