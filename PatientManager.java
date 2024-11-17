@@ -178,12 +178,12 @@ public class PatientManager implements IViewMedicalRecord{
     public void viewScheduledAppointments(User p) {
         List<Appointment> scheduledAppointments = db.getAllAppointments()
             .stream()
-            .filter(a -> a.getPatientId() != null)
-            .filter(a -> Objects.equals(a.getPatientId(), p.getId())
-                && (a.getAppointmentStatus().equals(Appointment.AppointmentStatus.SCHEDULED)
-                || a.getAppointmentStatus().equals(Appointment.AppointmentStatus.PENDING)))
+            .filter(a -> a.getPatientId() != null)  // Check null first
+            .filter(a -> a.getPatientId().equals(p.getId()))  // Then check equality
+            .filter(a -> a.getAppointmentStatus().equals(Appointment.AppointmentStatus.SCHEDULED) 
+                || a.getAppointmentStatus().equals(Appointment.AppointmentStatus.PENDING))        
             .collect(Collectors.toList());
-    
+
         if (scheduledAppointments.isEmpty()) {
             System.out.println("You have no scheduled appointments");
         }
