@@ -178,9 +178,8 @@ public class PatientManager implements IViewMedicalRecord{
     public void viewScheduledAppointments(User p) {
         List<Appointment> scheduledAppointments = db.getAllAppointments()
             .stream()
-            .filter(a -> 
-                !Objects.isNull(a.getPatientId())
-                && Objects.equals(a.getPatientId(), p.getId())
+            .filter(a -> a.getPatientId() != null)
+            .filter(a -> Objects.equals(a.getPatientId(), p.getId())
                 && (a.getAppointmentStatus().equals(Appointment.AppointmentStatus.SCHEDULED)
                 || a.getAppointmentStatus().equals(Appointment.AppointmentStatus.PENDING)))
             .collect(Collectors.toList());
@@ -201,9 +200,8 @@ public class PatientManager implements IViewMedicalRecord{
     public void viewAppointmentOutcomeRecords(Patient p) {
         List<Appointment> completedAppointments = db.getAllAppointments()
             .stream()
-            .filter(a -> 
-                !Objects.isNull(a.getPatientId())
-                && Objects.equals(a.getPatientId(), p.getId())
+            .filter(a -> a.getPatientId() != null)
+            .filter(a -> Objects.equals(a.getPatientId(), p.getId())
                 && a.getAppointmentStatus().equals(Appointment.AppointmentStatus.COMPLETED))
             .collect(Collectors.toList());
 

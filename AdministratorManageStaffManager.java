@@ -11,22 +11,39 @@ public class AdministratorManageStaffManager {
         System.out.println("Enter staff details:");
 
         // Input name
-        System.out.print("Name:");
-
+        System.out.println("Name:");
         String newName = scanner.nextLine();
 
         // Input age
-        System.out.print("Age: ");
-        int newAge = scanner.nextInt();
+        int newAge;
+        while (true) {
+            try {
+                System.out.println("Age: ");
+                String enteredChoice = scanner.nextLine();
+                newAge = Integer.parseInt(enteredChoice);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number");
+            }
+        }
 
         // Select role
-        System.out.print("Select staff role:");
-        System.out.print("1. Doctor");
-        System.out.print("2. Pharmacist");
-        System.out.print("3. Administrator");
-        System.out.print("Staff Role (enter number): ");
-        int roleChoice = scanner.nextInt();
-        scanner.nextLine();
+        System.out.println("Select staff role:");
+        System.out.println("1. Doctor");
+        System.out.println("2. Pharmacist");
+        System.out.println("3. Administrator");
+        System.out.println("Staff Role (enter number): ");
+        int roleChoice;
+        while (true) {
+            try {
+                String enteredChoice = scanner.nextLine();
+                roleChoice = Integer.parseInt(enteredChoice);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number");
+            }
+        }
+        
         String newRole;
         String rolePrefix;
         switch(roleChoice) {
@@ -49,7 +66,6 @@ public class AdministratorManageStaffManager {
                 break;
         }
         if (newRole.equals("none")) {
-            
             return;
         }
 
@@ -57,12 +73,19 @@ public class AdministratorManageStaffManager {
         System.out.println("Select Gender:");
         System.out.println("1. Male");
         System.out.println("2. Female");
-        System.out.print("Enter choice: ");
-        int genderChoice = scanner.nextInt();
-        scanner.nextLine();
+        System.out.println("Enter choice: ");
+        int genderChoice;
+        while (true) {
+            try {
+                String enteredChoice = scanner.nextLine();
+                genderChoice = Integer.parseInt(enteredChoice);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number");
+            }
+        }
         if (genderChoice != 1 && genderChoice != 2) {
             System.out.println("Invalid gender choice!");
-            
             return;
         }
         String newGender = genderChoice == 1 ? "Male" : "Female";

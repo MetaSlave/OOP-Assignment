@@ -19,7 +19,7 @@ public class AdministratorManager implements ICheckMedicineExists, IViewMedicine
     public void viewAndManageMedicationInventory() {
         // View and Manage Medication Inventory
         viewMedicineInventory();
-        System.out.print("Enter a medicine name to update low stock alert level: ");
+        System.out.println("Enter a medicine name to update low stock alert level: ");
         
         String medicine = scanner.nextLine();
 
@@ -29,12 +29,12 @@ public class AdministratorManager implements ICheckMedicineExists, IViewMedicine
             return;
         }
 
-        System.out.print("Enter new low stock alert level: ");
+        System.out.println("Enter new low stock alert level: ");
         int newAlertLevel = scanner.nextInt();
 
         Medicine medicineToUpdate = db.getAllMedicines().get(medicine);
         medicineToUpdate.setAlertLevel(newAlertLevel);
-        System.out.print("Alert level for " + medicine + " sucessfully updated to " + newAlertLevel);
+        System.out.println("Alert level for " + medicine + " sucessfully updated to " + newAlertLevel);
         
     }
 
