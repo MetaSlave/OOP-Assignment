@@ -17,7 +17,7 @@ public class PharmacistUI extends AbstractAuthMenu{
 
     @Override
     public void launchAuthMenu(User u) {
-        // Upcast user to patient
+        // Downcast user to patient
         Pharmacist ph = (Pharmacist) u;
 
         boolean loggedIn = true;

@@ -14,9 +14,17 @@ public class AdministratorManagerStaffUpdateManager {
 
     public void updateAge(Staff s) {
         // Update Age
-        System.out.print("Enter new age: ");
-        int updatedAge = scanner.nextInt();
-        scanner.nextLine();
+        int updatedAge;
+        while (true) {
+            try {
+                System.out.print("Enter new age: ");
+                String enteredChoice = scanner.nextLine();
+                updatedAge = Integer.parseInt(enteredChoice);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number");
+            }
+        }
         s.setAge(updatedAge);
         System.out.println("Age successfully updated!");
     }
@@ -27,8 +35,17 @@ public class AdministratorManagerStaffUpdateManager {
         System.out.println("1. Male");
         System.out.println("2. Female");
         System.out.print("Enter choice: ");
-        int updateGenderChoice = scanner.nextInt();
-        scanner.nextLine();
+        int updateGenderChoice;
+        while (true) {
+            try {
+                System.out.print("Enter new age: ");
+                String enteredChoice = scanner.nextLine();
+                updateGenderChoice = Integer.parseInt(enteredChoice);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number");
+            }
+        }
 
         if (updateGenderChoice != 1 && updateGenderChoice != 2) {
             System.out.println("Invalid gender choice!");
