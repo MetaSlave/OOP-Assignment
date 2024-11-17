@@ -1,7 +1,7 @@
-import java.util.Objects;
+
 import java.util.Scanner;
 
-public class HMSManager{
+public class HMSManager extends AbstractPasswordHasher implements IChangePassword{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton
@@ -10,14 +10,26 @@ public class HMSManager{
 
     // Login a user to the HMS
     public User login() {
-        User currentUser;
-        while(true) {
-            System.out.println("Enter your login id: ");
-            String loginId = scanner.nextLine();
-            System.out.println("Enter your password: ");
-            String password = scanner.nextLine();
-            currentUser = User.login(loginId, password, db.getAllUsers());
-            return currentUser;
+        System.out.println("Enter your login id: ");
+        String loginId = scanner.nextLine();
+        System.out.println("Enter your password: ");
+        String password = scanner.nextLine();
+        // Loop all users
+        for (User u : db.getAllUsers()) {
+            if (loginId.equals(u.getId())) {
+                if (verifyPassword(password,u.getPassword())) {
+                    // First Login must change password
+                    if (u.getFirstLogin()) {
+                        System.out.println("This is your first time logging in");
+                        changePassword(u, password);
+                        u.setFirstLoginFalse();
+                    }
+                    System.out.println("Successful login!");
+                    return u;
+                }
+            }
         }
+        System.out.println("Unsuccessful login, please try again");
+        return null;
     }
 }

@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointments, ICheckMedicineExists {
+public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointments, ICheckMedicineExists, IChangePassword {
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton
@@ -201,7 +201,7 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
                         break;
                     }
                     else if (yesNo.equals("n")) {
-                        a.cancelSlot();
+                        a.resetSlot();
                         System.out.println("Appointment declined");
                         break;
                     }
@@ -321,5 +321,58 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
         appointment.completeSlot();
 
         System.out.println("Appointment outcome created");
+    }
+    public void cancelAppointment(Doctor d) {
+        // Choose date
+        String date;
+        LocalDate parsedDate;
+        while (true) {
+            try {
+                System.out.println("Which date is the appointment on? (dd/MM/yy):");
+                date = scanner.nextLine();
+                parsedDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yy"));
+                break;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use dd/MM/yy (e.g., 25/12/23)");
+            }
+        }
+
+        // Choose slot
+        String time;
+        LocalTime parsedTime;
+        while (true) {
+            try {
+                System.out.println("Which timeslot is the appointment on? (HH:mm):");
+                time = scanner.nextLine();
+                parsedTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+                break;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid time format. Please use HH:mm (e.g., 14:30)");
+            }
+        }
+
+        final LocalDate finalParsedDate = parsedDate;
+        final LocalTime finalParsedTime = parsedTime;
+
+        // Find slot
+        Appointment appointment = db.getAllAppointments()
+            .stream()
+            .filter(a -> 
+                a.getAppointmentStatus().equals(Appointment.AppointmentStatus.OPEN) 
+                && a.getDoctorId().equals(d.getId()) 
+                && a.getAppointmentDate().equals(finalParsedDate) 
+                && a.getAppointmentTime().equals(finalParsedTime))
+            .findFirst()
+            .orElse(null);
+        
+        if (appointment == null) {
+            System.out.println("No appointment slot found to cancel");
+            return;
+        }
+        else {
+            // Schedule slot
+            appointment.cancelSlot();
+            System.out.println("Appointment slot successfully cancelled");
+        }
     }
 }

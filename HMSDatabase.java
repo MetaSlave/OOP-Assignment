@@ -11,21 +11,21 @@ public class HMSDatabase {
     private static HMSDatabase instance;
 
     // List to store all users
-    public ArrayList<User> allUsers = new ArrayList<>();
+    private ArrayList<User> allUsers = new ArrayList<>();
     // List to store all appointments
-    public ArrayList<Appointment> allAppointments = new ArrayList<>();
+    private ArrayList<Appointment> allAppointments = new ArrayList<>();
     // List to store all replenishment requests
-    public ArrayList<ReplenishmentRequest> allReplenishmentRequests = new ArrayList<>();
+    private ArrayList<ReplenishmentRequest> allReplenishmentRequests = new ArrayList<>();
 
     // Hashmap to store appointment outcomes
-    public Map<String, AppointmentOutcome> allAppointmentOutcomes = new HashMap<>();    // AppointmentId as Key
+    private Map<String, AppointmentOutcome> allAppointmentOutcomes = new HashMap<>();    // AppointmentId as Key
     // Hashmap to store prescriptions
-    public Map<String, ArrayList<Prescription>> allPrescriptions = new HashMap<>();     // AppointmentId as Key
+    private Map<String, ArrayList<Prescription>> allPrescriptions = new HashMap<>();     // AppointmentId as Key
     // Hashmap to store medical records
-    public Map<String, ArrayList<MedicalRecord>> allMedicalRecords = new HashMap<>();   // PatientId as Key
+    private Map<String, ArrayList<MedicalRecord>> allMedicalRecords = new HashMap<>();   // PatientId as Key
 
     // Hashmap to store medicine inventory
-    public Map<String, Medicine> allMedicines = new HashMap<>();                        // Medicine name as Key
+    private Map<String, Medicine> allMedicines = new HashMap<>();                        // Medicine name as Key
 
     // Private constructor
     private HMSDatabase() {

@@ -11,7 +11,8 @@ public class PharmacistUI implements IAuthMenu{
         System.out.println("2. Update Prescription Status");
         System.out.println("3. View Medication Inventory");
         System.out.println("4. Submit Replenishment Request");
-        System.out.println("5. Logout");
+        System.out.println("5. Change Password");
+        System.out.println("6. Logout");
     }
 
     @Override
@@ -56,6 +57,9 @@ public class PharmacistUI implements IAuthMenu{
                     newPharmacistManager.createReplenishmentRequest(ph);
                     break;
                 case 5:
+                    newPharmacistManager.changePassword(ph);
+                    break;
+                case 6:
                     loggedIn = false;
                     return;
                 default:

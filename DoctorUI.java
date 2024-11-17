@@ -11,10 +11,12 @@ public class DoctorUI implements IAuthMenu {
         System.out.println("2. Update Patient Medical Records");
         System.out.println("3. View Personal Schedule");
         System.out.println("4. Set Availability for Appointments");
-        System.out.println("5. Accept or Decline Appointment Requests");
-        System.out.println("6. View Upcoming Appointments");
-        System.out.println("7. Record Appointment Outcome");
-        System.out.println("8. Logout");
+        System.out.println("5. Cancel an Open Appointment");
+        System.out.println("6. Accept or Decline Appointment Requests");
+        System.out.println("7. View Upcoming Appointments");
+        System.out.println("8. Record Appointment Outcome");
+        System.out.println("9. Change Password");
+        System.out.println("10. Logout");
     }
 
     @Override
@@ -59,18 +61,24 @@ public class DoctorUI implements IAuthMenu {
                     newDoctorManager.createNewAppointment(d);
                     break;
                 case 5:
+                    // Cancel Appointment
+                    newDoctorManager.cancelAppointment(d);
+                case 6:
                     // Accept or Decline Appointment Requests
                     newDoctorManager.acceptOrDeclineAppointmentRequests(d);
                     break;
-                case 6:
+                case 7:
                     // View Upcoming Appointments
                     newDoctorManager.viewScheduledAppointments(d);
                     break;
-                case 7:
+                case 8:
                     // Record Appointment Outcome
                     newDoctorManager.recordAppointmentOutcome(d);
                     break;
-                case 8:
+                case 9:
+                    newDoctorManager.changePassword(d);
+                    break;
+                case 10:
                     loggedIn = false;
                     return;
                 default:

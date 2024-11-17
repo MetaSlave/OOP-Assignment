@@ -1,4 +1,3 @@
-import java.util.*;
 import java.io.*;
 
 /**
@@ -80,13 +79,16 @@ public class User extends AbstractPasswordHasher implements Serializable {
     }
 
     /**
-     * Returns the user's password.
-     * @return The user's current password
+     * Returns the user's password hashed.
+     * @return The user's current password hashed
      */
     public String getPassword() {
         return this.password;
     }
 
+    public void setPassword(String newPasswordHash) {
+        this.password = newPasswordHash;
+    }
     /**
      * Checks if this is the user's first login.
      * @return true if this is the user's first login, false otherwise
@@ -100,69 +102,5 @@ public class User extends AbstractPasswordHasher implements Serializable {
      */
     public void setFirstLoginFalse() {
         this.firstLogin = false;
-    }
-
-    /**
-     * Authenticates a user based on login ID and password.
-     * If it's the user's first login, they will be prompted to change their password.
-     *
-     * @param loginId   The ID to authenticate with
-     * @param password  The password to authenticate with
-     * @param allUsers  List of all users in the system
-     * @return The authenticated User object if successful, null otherwise
-     */
-    public static User login(String loginId, String password, ArrayList<User> allUsers) {
-        // Loop all users
-        for (User u : allUsers) {
-            if (loginId.equals(u.getId())) {
-                if (verifyPassword(password,u.getPassword())) {
-                    // First Login must change password
-                    if (u.getFirstLogin()) {
-                        System.out.println("This is your first time logging in");
-                        u.changePassword(password);
-                        u.setFirstLoginFalse();
-                    }
-                    System.out.println("Successful login!");
-                    return u;
-                }
-            }
-        }
-        System.out.println("Unsuccessful login, please try again");
-        return null;
-    }
-
-    /**
-     * Allows a user to change their password after verifying their old password.
-     * Prompts the user to enter the new password twice for confirmation.
-     *
-     * @param oldPassword The current password for verification
-     * @return true if password was successfully changed, false otherwise
-     */
-    public boolean changePassword(String oldPassword) {
-        // Get the scanner instance
-        HMSInput input = HMSInput.getInstance();
-        // Get the scanner
-        Scanner scanner = input.getScanner();
-        
-        if (verifyPassword(oldPassword,this.password)) {
-            String newPassword;
-            String newPassword2;
-            do {
-                System.out.println("Enter your new password:");
-                newPassword = scanner.nextLine();
-                System.out.println("Enter your new password again:");
-                newPassword2 = scanner.nextLine();
-                if (!newPassword.equals(newPassword2)) {
-                    System.out.println("Passwords do not match");
-                }
-            } while (!newPassword.equals(newPassword2));
-            this.password = hashPassword(newPassword);
-            System.out.println("Password has been successfully changed!");
-            return true;
-        }
-        else {
-            System.out.println("Password incorrect!");
-        }
-        return false;
     }
 }

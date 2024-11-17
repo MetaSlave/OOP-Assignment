@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class PatientManager implements IViewMedicalRecord{
+public class PatientManager implements IViewMedicalRecord, IChangePassword{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton
@@ -27,6 +27,7 @@ public class PatientManager implements IViewMedicalRecord{
             }
         }
     }
+    
     public void updateContactDetails(Patient p) {
         System.out.println("Enter your new email address:");
         String email = scanner.nextLine();

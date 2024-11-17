@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class AdministratorManager implements ICheckMedicineExists, IViewMedicineInventory{
+public class AdministratorManager implements ICheckMedicineExists, IViewMedicineInventory, IChangePassword{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton

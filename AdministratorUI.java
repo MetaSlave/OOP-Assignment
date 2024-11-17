@@ -11,7 +11,8 @@ public class AdministratorUI implements IAuthMenu{
         System.out.println("2. View Appointments Details");
         System.out.println("3. View and Manage Medication Inventory");
         System.out.println("4. Approve Replenishment Requests");
-        System.out.println("5. Logout");
+        System.out.println("5. Change Password");
+        System.out.println("6. Logout");
     }
 
     @Override
@@ -57,6 +58,8 @@ public class AdministratorUI implements IAuthMenu{
                     newAdminManager.approveReplenishmentRequests();
                     break;
                 case 5:
+                    newAdminManager.changePassword(admin);
+                case 6:
                     loggedIn = false;
                     return;
                 default:

@@ -1,7 +1,7 @@
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
 
-public class AbstractPasswordHasher {
+abstract class AbstractPasswordHasher {
     public static String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

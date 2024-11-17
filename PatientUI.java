@@ -15,7 +15,8 @@ public class PatientUI implements IAuthMenu{
         System.out.println("6. Cancel an Appointment");
         System.out.println("7. View Scheduled Appointments");
         System.out.println("8. View Past Appointment Outcome Records");
-        System.out.println("9. Logout");
+        System.out.println("9. Change Password");
+        System.out.println("10. Logout");
     }
 
     @Override
@@ -79,7 +80,9 @@ public class PatientUI implements IAuthMenu{
                     newPatientManager.viewAppointmentOutcomeRecords(p);
                     break;
                 case 9:
-                    loggedIn = false;
+                    newPatientManager.changePassword(p);
+                    break;
+                case 10:
                     return;
                 default:
                     System.out.println("Invalid choice");
