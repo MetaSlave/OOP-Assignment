@@ -65,10 +65,17 @@ public class AdministratorManager implements ICheckMedicineExists, IViewMedicine
                 System.out.println("\nRequest " + (i + 1) + ":");
                 pendingRequests.get(i).print();
             }
-
-            System.out.print("Enter request number to approve (1-" + pendingRequests.size() + ", 0 to quit): ");
-            int requestNum = scanner.nextInt();
-            scanner.nextLine();
+            int requestNum;
+            while (true) {
+                try {
+                    System.out.println("Enter request number to approve (1-" + pendingRequests.size() + ", 0 to quit): ");
+                    String enteredChoice = scanner.nextLine();
+                    requestNum = Integer.parseInt(enteredChoice);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a number");
+                }
+            }
             // Exit
             if (requestNum == 0) {
                 break;
