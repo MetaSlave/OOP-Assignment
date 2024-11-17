@@ -1,16 +1,50 @@
 import java.util.Scanner;
-
+/**
+* Provides the main user interface for the Hospital Management System.
+* This class implements IDisplayOptions to create the primary menu system
+* that handles user authentication and role-based navigation.
+*/
 public class HMSUI implements IDisplayOptions{
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
-
+   /**
+    * Displays the main HMS menu options.
+    * Shows a formatted list of initial options:
+    * - Login to the system
+    * - Exit the application
+    */
     @Override
     public void displayOptions() {
         System.out.println("----HMS MENU----");
         System.out.println("1. Login");
         System.out.println("2. Exit");
     }
-
+   /**
+    * Launches the main HMS interface and manages the program flow.
+    * This method:
+    * - Creates an HMS manager instance
+    * - Runs the main program loop until exit
+    * - Handles user authentication
+    * - Directs users to role-specific interfaces
+    * 
+    * Flow:
+    * 1. Displays main menu options
+    * 2. Processes user input with validation
+    * 3. Handles login attempts
+    * 4. Routes authenticated users to appropriate interfaces:
+    *    - Patient interface
+    *    - Doctor interface
+    *    - Pharmacist interface
+    *    - Administrator interface
+    *
+    * Error Handling:
+    * - Validates numeric input
+    * - Handles failed login attempts
+    * - Validates user roles
+    * - Provides appropriate error messages
+    * 
+    * @throws NumberFormatException Caught internally for invalid numeric input
+    */
     public void launchMenu() {
         // Instantiate HMSManager
         HMSManager newHMSManager = new HMSManager();

@@ -18,13 +18,14 @@ public class Medicine implements Serializable {
     private int stock;
     private int alertBelow;
 
-    /**
-     * Constructs a new Medicine with the specified details.
-     *
-     * @param name The name of the medicine
-     * @param stock The initial stock quantity
-     * @param alertBelow The threshold below which stock alerts are triggered
-     */
+   /**
+    * Constructs a new Medicine with the specified details.
+    *
+    * @param medicineName The name of the medicine
+    * @param medicineCost The cost per unit of the medicine
+    * @param stock The initial stock quantity
+    * @param alertBelow The threshold below which stock alerts are triggered
+    */
     public Medicine(String medicineName, double medicineCost, int stock, int alertBelow) {
         this.medicineName = medicineName;
         this.medicineCost = medicineCost;

@@ -42,8 +42,17 @@ public class AdministratorManageStaffUpdateUI extends AbstractAuthMenu{
 
         while (true) {
             displayOptions();
-            System.out.print("Enter your choice: ");
-            int updateChoice = scanner.nextInt();
+            int updateChoice;
+            while (true) {
+                try {
+                    System.out.print("Enter your choice: ");
+                    String enteredChoice = scanner.nextLine();
+                    updateChoice = Integer.parseInt(enteredChoice);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid choice");
+                }
+            }
             scanner.nextLine();
             switch(updateChoice) {
                 case 1: 

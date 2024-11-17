@@ -137,15 +137,18 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
         }
     }
     /**
-    * Creates a new appointment slot for a doctor.
-    * Validates that:
-    * - Date format is correct
-    * - Time is in 30-minute intervals
-    * - No existing appointment exists at that time
-    *
-    * @param d The doctor creating the appointment slot
-    * @throws DateTimeParseException Caught internally for invalid date/time formats
-    */
+     * Creates a new appointment slot for a doctor.
+     * Validates that:
+     * - Date format is correct (dd/MM/yy)
+     * - Date is not in the past
+     * - Time format is correct (HH:mm)
+     * - Time is in 30-minute intervals
+     * - Time is not in the past for current day
+     * - No existing appointment exists at that time
+     *
+     * @param d The doctor creating the appointment slot
+     * @throws DateTimeParseException Caught internally for invalid date/time formats
+     */
     public void createNewAppointment(Doctor d) {
         // Create new appointment
         // Choose date
