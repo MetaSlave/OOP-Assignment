@@ -66,7 +66,11 @@ public class Medicine implements Serializable {
             return false;
         }
     }
-
+   /**
+    * Gets the cost per unit of the medicine.
+    *
+    * @return double The cost of one unit of this medicine
+    */
     public double getMedicineCost() {
         return this.medicineCost;
     }
@@ -79,7 +83,11 @@ public class Medicine implements Serializable {
     public void replenishStock(int replenishAmount) {
         this.stock += replenishAmount;
     }
-
+   /**
+    * Decreases the stock quantity by the specified amount.
+    *
+    * @param decreaseAmount The amount to subtract from current stock
+    */
     public void decreaseStock(int decreaseAmount) {
         this.stock -= decreaseAmount;
     }
@@ -92,7 +100,12 @@ public class Medicine implements Serializable {
     public void setAlertLevel(int alertBelow) {
         this.alertBelow = alertBelow;
     }
-
+   /**
+    * Checks if current stock is at or below alert threshold.
+    *
+    * @return boolean Returns true if stock is at or below alert level,
+    *                 false if stock is above alert level
+    */
     public boolean checkStockLevel() {
         if (this.stock <= this.alertBelow) {
             return true;

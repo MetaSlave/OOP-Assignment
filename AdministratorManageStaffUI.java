@@ -41,7 +41,6 @@ public class AdministratorManageStaffUI extends AbstractAuthMenu{
         AdministratorManageStaffManager newAdminManageStaffManager = new AdministratorManageStaffManager();
         while (true) {
             displayOptions();
-            System.out.print("Enter your choice: ");
             int subChoice;
             while (true) {
                 try {
@@ -53,7 +52,6 @@ public class AdministratorManageStaffUI extends AbstractAuthMenu{
                     System.out.println("Invalid input. Please enter a valid choice");
                 }
             }
-            scanner.nextLine();
             switch(subChoice) {
                 case 1:
                     newAdminManageStaffManager.addNewStaff();

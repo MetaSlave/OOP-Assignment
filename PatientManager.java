@@ -7,13 +7,24 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
+/**
+* Manages patient-specific operations in the hospital management system.
+* This class implements multiple interfaces to handle various patient tasks
+* including medical record viewing, appointment management, and personal
+* information updates.
+*/
 public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
-
+   /**
+    * Displays the medical record for a specific patient.
+    * Shows the patient's personal details and complete medical history.
+    *
+    * @param p The patient User object whose records should be displayed
+    */
+    @Override
     public void viewMedicalRecord(User p) {
         System.out.println("----YOUR MEDICAL RECORD----");
         ((Patient) p).print();
@@ -27,7 +38,14 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
             }
         }
     }
-
+   /**
+    * Updates a patient's contact information.
+    * Allows modification of:
+    * - Email address
+    * - Contact number
+    *
+    * @param p The Patient whose contact details should be updated
+    */
     public void updateContactDetails(Patient p) {
         System.out.println("Enter your new email address:");
         String email = scanner.nextLine();
@@ -38,7 +56,10 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
         System.out.println("Contact information successfully updated!");
         
     }
-
+   /**
+    * Displays all available (open) appointment slots in the system.
+    * Shows only appointments that have not been booked or requested by any patient.
+    */
     public void viewAppointmentSlots() {
         List<Appointment> openAppointments = db.getAllAppointments()
             .stream()
@@ -57,7 +78,17 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
             }
         }
     }
-
+   /**
+    * Schedules an appointment for a patient with a specified doctor.
+    * Validates:
+    * - Doctor ID existence
+    * - Date format and validity
+    * - Time format and validity
+    * - Slot availability
+    *
+    * @param p The Patient scheduling the appointment
+    * @throws DateTimeParseException Caught internally for invalid date/time formats
+    */
     public void scheduleAppointment(Patient p) {
         // Choose doctor
         System.out.println("Which doctor do you want to schedule with? (id):");
@@ -116,6 +147,19 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
         }
     }
 
+   /**
+    * Cancels a scheduled or pending appointment for a patient.
+    * Allows cancellation only if:
+    * - Appointment exists
+    * - Appointment is in PENDING or SCHEDULED status
+    * - Patient ID matches
+    * - Doctor ID matches
+    * - Date and time match
+    *
+    * @param p The Patient cancelling the appointment
+    * @return boolean True if cancellation successful, false if appointment not found
+    * @throws DateTimeParseException Caught internally for invalid date/time formats
+    */
     public boolean cancelAppointment(Patient p) {
         // Choose doctor
         System.out.println("Which doctor did you schedule your appointment with? (id):");
@@ -176,6 +220,11 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
         }
     }
 
+   /**
+    * Displays all scheduled and pending appointments for a patient.
+    *
+    * @param p The patient User object whose appointments should be shown
+    */
     public void viewScheduledAppointments(User p) {
         List<Appointment> scheduledAppointments = db.getAllAppointments()
             .stream()
@@ -197,7 +246,17 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
             }
         }
     }
-
+   /**
+    * Displays outcomes of all completed appointments for a patient.
+    * For each completed appointment, shows:
+    * - Date and time
+    * - Services provided
+    * - Prescriptions
+    * - Appointment cost
+    * - Consultation notes
+    *
+    * @param p The Patient whose appointment outcomes should be displayed
+    */
     public void viewAppointmentOutcomeRecords(Patient p) {
         List<Appointment> completedAppointments = db.getAllAppointments()
             .stream()

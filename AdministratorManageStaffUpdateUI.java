@@ -53,7 +53,6 @@ public class AdministratorManageStaffUpdateUI extends AbstractAuthMenu{
                     System.out.println("Invalid input. Please enter a valid choice");
                 }
             }
-            scanner.nextLine();
             switch(updateChoice) {
                 case 1: 
                     newAdministratorManagerStaffUpdateManager.updateName(staffToEdit);

@@ -1,9 +1,22 @@
 import java.util.Scanner;
-
+/**
+* Provides the main user interface for patient operations in the hospital system.
+* This class extends AbstractAuthMenu to implement a comprehensive menu system
+* allowing patients to manage their medical records, appointments, personal information,
+* and system settings.
+*/
 public class PatientUI extends AbstractAuthMenu{
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
-
+   /**
+    * Displays the main patient menu options.
+    * Shows a formatted list of all available patient operations including:
+    * - Medical record viewing
+    * - Personal information management
+    * - Appointment scheduling and management
+    * - Appointment history viewing
+    * - Account settings
+    */
     @Override
     public void displayOptions() {
         System.out.println("----PATIENT MENU----");
