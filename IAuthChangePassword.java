@@ -1,20 +1,21 @@
 import java.util.Scanner;
 
-public interface IChangePassword extends IPasswordHasher{
-/**
+public interface IAuthChangePassword extends IPasswordHasher{
+    /**
      * Allows a user to change their password after verifying their old password.
      * Prompts the user to enter the new password twice for confirmation.
-     * NOTE: USED ONLY FOR FIRST LOGIN
      *
      * @param oldPassword The current password for verification
      * @return true if password was successfully changed, false otherwise
      */
-    default boolean changePassword(User u, String oldPassword) {
+    default boolean changePassword(User u) {
         // Get the scanner instance
         HMSInput input = HMSInput.getInstance();
         // Get the scanner
         Scanner scanner = input.getScanner();
 
+        System.out.println("Enter your old password:");
+        String oldPassword = scanner.nextLine();
         if (verifyPassword(oldPassword,u.getPassword())) {
             String newPassword;
             String newPassword2;
