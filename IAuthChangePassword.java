@@ -1,12 +1,20 @@
 import java.util.Scanner;
-
+/**
+ * Provides functionality for password change operations in the authentication system.
+ * This interface extends IHashPassword to ensure secure password handling.
+ * It includes methods for verifying and changing user passwords with confirmation steps.
+ */
 public interface IAuthChangePassword extends IHashPassword{
     /**
-     * Allows a user to change their password after verifying their old password.
-     * Prompts the user to enter the new password twice for confirmation.
+     * Changes a user's password after verification of their old password.
+     * This method implements a secure password change workflow:
+     * 1. Prompts for and verifies the old password
+     * 2. Requests the new password to be entered twice for confirmation
+     * 3. Updates the password only if all verifications pass
      *
-     * @param oldPassword The current password for verification
-     * @return true if password was successfully changed, false otherwise
+     * @param u The User object whose password needs to be changed
+     * @return boolean Returns true if the password was successfully changed,
+     *                 false if the old password verification failed
      */
     default boolean changePassword(User u) {
         // Get the scanner instance

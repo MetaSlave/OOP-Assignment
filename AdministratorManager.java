@@ -25,12 +25,19 @@ public class AdministratorManager implements ICheckMedicineExists, IViewMedicine
 
         // Check if medicine exists
         if (!checkMedicineExists(medicine)) {
-            
             return;
         }
-
-        System.out.println("Enter new low stock alert level: ");
-        int newAlertLevel = scanner.nextInt();
+        int newAlertLevel;
+        while (true) {
+            try {
+                System.out.println("Enter new low stock alert level: ");
+                String enteredChoice = scanner.nextLine();
+                newAlertLevel = Integer.parseInt(enteredChoice);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number");
+            }
+        }
 
         Medicine medicineToUpdate = db.getAllMedicines().get(medicine);
         medicineToUpdate.setAlertLevel(newAlertLevel);
