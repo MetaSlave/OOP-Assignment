@@ -99,11 +99,22 @@ public class AppointmentOutcome implements Serializable {
     public String getConsultationNotes() {
         return this.consultationNotes;
     }
-
+    /**
+     * Gets the total cost of the appointment including base cost and any additional charges.
+     * The base cost is defined by APPOINTMENT_BASE_COST constant.
+     * 
+     * @return double The total cost of the appointment
+     */
     public double getAppointmentCost() {
         return this.appointmentCost;
     }
-
+    /**
+     * Updates the total cost of the appointment.
+     * This method allows modification of the appointment cost to account for
+     * additional services or special circumstances beyond the base cost.
+     * 
+     * @param newAppointmentCost The new total cost to set for the appointment
+     */
     public void setAppointmentCost(double newAppointmentCost) {
         this.appointmentCost = newAppointmentCost;
     }

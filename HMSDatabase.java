@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
+/**
+* Singleton class that serves as the central data repository for the Hospital Management System.
+* Manages all system data including users, appointments, medical records, prescriptions,
+* and medicine inventory. Provides data persistence through serialization.
+*/
 public class HMSDatabase {
     // Singleton instance
     private static HMSDatabase instance;
@@ -38,7 +42,12 @@ public class HMSDatabase {
         allMedicines = new HashMap<>();
     }
 
-    // Public method to get instance
+   /**
+    * Gets the singleton instance of HMSDatabase.
+    * Creates a new instance if none exists.
+    *
+    * @return The singleton HMSDatabase instance
+    */
     public static HMSDatabase getInstance() {
         if (instance == null) {
             instance = new HMSDatabase();
@@ -46,16 +55,54 @@ public class HMSDatabase {
         return instance;
     }
 
-    // Getters for the collections
+    /**
+    * Gets the list of all users in the system.
+    * @return ArrayList<User> List containing all system users
+    */
     public ArrayList<User> getAllUsers() { return allUsers; }
+    /**
+    * Gets the list of all appointments.
+    * @return ArrayList<Appointment> List containing all appointments
+    */
     public ArrayList<Appointment> getAllAppointments() { return allAppointments; }
+    /**
+    * Gets the list of all replenishment requests.
+    * @return ArrayList<ReplenishmentRequest> List containing all replenishment requests
+    */
     public ArrayList<ReplenishmentRequest> getAllReplenishmentRequests() { return allReplenishmentRequests; }
+    /**
+    * Gets the map of appointment outcomes indexed by appointment ID.
+    * @return Map<String, AppointmentOutcome> Map of appointment outcomes
+    */
     public Map<String, AppointmentOutcome> getAllAppointmentOutcomes() { return allAppointmentOutcomes; }
+    /**
+    * Gets the map of prescriptions indexed by appointment ID.
+    * @return Map<String, ArrayList<Prescription>> Map of prescriptions
+    */
     public Map<String, ArrayList<Prescription>> getAllPrescriptions() { return allPrescriptions; }
+    /**
+    * Gets the map of medical records indexed by patient ID.
+    * @return Map<String, ArrayList<MedicalRecord>> Map of medical records
+    */
     public Map<String, ArrayList<MedicalRecord>> getAllMedicalRecords() { return allMedicalRecords; }
+    /**
+    * Gets the map of medicines indexed by medicine name.
+    * @return Map<String, Medicine> Map of medicines
+    */
     public Map<String, Medicine> getAllMedicines() { return allMedicines; }
 
-    // Run initialization
+   /**
+    * Initializes the database with data from CSV files.
+    * Reads and populates:
+    * - Patient data from Patient_List.csv
+    * - Staff data from Staff_List.csv
+    * - Medicine data from Medicine_List.csv
+    * 
+    * After loading, saves the initialized data through serialization.
+    *
+    * @throws FileNotFoundException If any required CSV file is missing
+    * @throws IllegalArgumentException If an unknown staff role is encountered
+    */
     public void initialize() {
         // Initialize Patient_List.csv
         ArrayList<Patient> allPatients = new ArrayList<Patient>();
@@ -150,7 +197,17 @@ public class HMSDatabase {
         save();
     }
 
-    // Call all serialize methods in classes
+   /**
+    * Saves all system data through serialization.
+    * Serializes:
+    * - User data (Patients, Doctors, Pharmacists, Administrators)
+    * - Appointments and outcomes
+    * - Prescriptions and medical records
+    * - Medicine inventory
+    * - Replenishment requests
+    *
+    * @return boolean True if save successful, false if any errors occur
+    */
     public boolean save() {
         try {
             // Populate Staff and Patients
@@ -192,7 +249,17 @@ public class HMSDatabase {
         return true;
     }
 
-    // Call all deserialize methods in calsses and populate above lists and hashmaps
+   /**
+    * Loads all system data from serialized files.
+    * Deserializes and populates:
+    * - User data (all types)
+    * - Appointments and outcomes
+    * - Prescriptions and medical records
+    * - Medicine inventory
+    * - Replenishment requests
+    *
+    * @return boolean True if load successful, false if any errors occur
+    */
     public boolean load() {
         try {
             // Deserialize everyone

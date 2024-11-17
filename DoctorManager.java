@@ -7,13 +7,24 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
+/**
+* Manages doctor-specific operations in the hospital management system.
+* This class implements multiple interfaces to handle various doctor tasks
+* including medical record management, appointment scheduling, prescriptions,
+* and consultation outcomes.
+*/
 public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointments, ICheckMedicineExists, IAuthChangePassword {
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
-
+   /**
+    * Displays medical records for all patients under a doctor's care.
+    * Filters and shows only records for patients who have appointments with
+    * the specified doctor.
+    *
+    * @param d The doctor User object whose patient records should be displayed
+    */
     public void viewMedicalRecord(User d) {
         // Get all patients associated with doctor
         List<String> patientIds = db.getAllAppointments().stream()
@@ -50,7 +61,15 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
             }
         }
     }
-    
+    /**
+    * Creates or updates a medical record for a specified patient.
+    * Verifies that:
+    * - The patient exists in the system
+    * - The patient is under the doctor's care
+    * Before allowing record creation/update.
+    *
+    * @param d The doctor creating/updating the record
+    */
     public void updateMedicalRecord(Doctor d) {
         // Update medical records (basically create a new record)
         // Choose patientId
@@ -89,7 +108,12 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
             }
         }
     }
-    
+    /**
+    * Displays all appointments (both confirmed and unconfirmed) for a doctor.
+    * Excludes completed and cancelled appointments from the display.
+    *
+    * @param d The doctor whose schedule should be displayed
+    */
     public void viewPersonalSchedule(Doctor d) {
         // View appointment slots (both confirmed and not confirmed)
         List<Appointment> doctorAppointments = db.getAllAppointments()
@@ -112,7 +136,16 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
             }
         }
     }
-    
+    /**
+    * Creates a new appointment slot for a doctor.
+    * Validates that:
+    * - Date format is correct
+    * - Time is in 30-minute intervals
+    * - No existing appointment exists at that time
+    *
+    * @param d The doctor creating the appointment slot
+    * @throws DateTimeParseException Caught internally for invalid date/time formats
+    */
     public void createNewAppointment(Doctor d) {
         // Create new appointment
         // Choose date
@@ -123,7 +156,13 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
                 System.out.println("Which date do you want to create an appointment slot on? (dd/MM/yy):");
                 date = scanner.nextLine();
                 parsedDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yy"));
-                break;
+                // Check if the date is not before today
+                if (parsedDate.isBefore(LocalDate.now())) {
+                    System.out.println("Cannot create appointments in the past. Please choose today or a future date.");
+                }
+                else {
+                    break;
+                }
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date format. Please use dd/MM/yy (e.g., 25/12/23)");
             }
@@ -141,6 +180,9 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
                 // Validate minutes are in 30-minute increments
                 if (parsedTime.getMinute() % 30 != 0) {
                     System.out.println("Please choose a time with minutes in 30-minute intervals (00 or 30)");
+                }
+                else if (parsedTime.isBefore(LocalTime.now())){
+                    System.out.println("Cannot create appointments in the past. Please choose a future time.");
                 }
                 else {
                     break;
@@ -172,7 +214,13 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
             System.out.println("Appointment slot successfully created.");
         }
     }
-    
+    /**
+    * Manages pending appointment requests for a doctor.
+    * Allows the doctor to accept or decline each pending request,
+    * updating the appointment status accordingly.
+    *
+    * @param d The doctor processing the appointment requests
+    */
     public void acceptOrDeclineAppointmentRequests(Doctor d) {
         // Accept or decline appointment requests
         // Get appointments that are pending and belong to doctor
@@ -215,7 +263,12 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
             }
         }
     }
-    
+    /**
+    * Displays only scheduled (confirmed) appointments for a doctor.
+    *
+    * @param d The doctor whose scheduled appointments should be displayed
+    */
+   @Override
     public void viewScheduledAppointments(User d) {
         // View appointment slots (confirmed only)
         List<Appointment> confirmedAppointments = db.getAllAppointments()
@@ -233,7 +286,16 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
             }
         }
     }
-    
+    /**
+    * Records the outcome of a completed appointment including:
+    * - Services provided
+    * - Prescribed medications
+    * - Consultation notes
+    * Also updates the appointment status to completed.
+    *
+    * @param d The doctor recording the appointment outcome
+    * @throws DateTimeParseException Caught internally for invalid date/time formats
+    */
     public void recordAppointmentOutcome(Doctor d) {
         // Record Appointment Outcome
         // Choose date
@@ -325,7 +387,14 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
 
         System.out.println("Appointment outcome created");
     }
-    
+    /**
+    * Cancels an open (unbooked) appointment slot.
+    * Only allows cancellation of appointments that are still open
+    * and haven't been booked by patients.
+    *
+    * @param d The doctor cancelling the appointment
+    * @throws DateTimeParseException Caught internally for invalid date/time formats
+    */
     public void cancelAppointment(Doctor d) {
         // Choose date
         String date;

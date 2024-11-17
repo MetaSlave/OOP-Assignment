@@ -1,9 +1,22 @@
 import java.util.Scanner;
-
+/**
+* Provides the main user interface for doctor operations in the hospital system.
+* This class extends AbstractAuthMenu to implement a comprehensive menu system
+* allowing doctors to manage patient records, appointments, consultations, and
+* personal settings.
+*/
 public class DoctorUI extends AbstractAuthMenu {
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
-
+    /**
+    * Displays the main doctor menu options.
+    * Shows a formatted list of all available doctor operations including:
+    * - Patient medical record management
+    * - Appointment scheduling and management
+    * - Consultation recording
+    * - Personal settings
+    * Each option is numbered for easy selection.
+    */
     @Override
     public void displayOptions() {
         System.out.println("----DOCTOR MENU----");
@@ -18,7 +31,24 @@ public class DoctorUI extends AbstractAuthMenu {
         System.out.println("9. Change Password");
         System.out.println("10. Logout");
     }
-
+    /**
+    * Launches the main doctor interface with full functionality.
+    * This method:
+    * - Casts the provided User to Doctor type
+    * - Creates a DoctorManager instance for operations
+    * - Runs in a loop until logout is selected
+    * - Processes user input and delegates to appropriate manager methods
+    * - Provides input validation and error handling
+    *
+    * The menu provides access to:
+    * 1. Medical record viewing and updating
+    * 2. Schedule management and appointment handling
+    * 3. Consultation outcome recording
+    * 4. Password management
+    *
+    * @param u The User object to be cast to Doctor for medical operations.
+    * @throws NumberFormatException Caught internally when non-numeric input is provided
+    */
     @Override
     public void launchAuthMenu(User u) {
         // Upcast user to doctor

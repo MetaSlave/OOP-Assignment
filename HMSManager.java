@@ -1,6 +1,10 @@
 
 import java.util.Scanner;
-
+/**
+* Manages the Hospital Management System's authentication and user operations.
+* This class handles user login, password verification, and first-time login procedures,
+* implementing the IChangePassword interface for password management functionality.
+*/
 public class HMSManager implements IChangePassword{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
@@ -8,7 +12,28 @@ public class HMSManager implements IChangePassword{
     private final Scanner scanner = HMSInput.getInstance().getScanner();
 
 
-    // Login a user to the HMS
+    /**
+    * Authenticates a user's login attempt and manages first-time login procedures.
+    * This method:
+    * 1. Prompts for user ID and password
+    * 2. Verifies credentials against stored user data
+    * 3. Handles first-time login password change requirement
+    * 4. Provides appropriate feedback for login success/failure
+    *
+    * Login Process:
+    * - Checks if provided ID exists in the system
+    * - Verifies the provided password
+    * - For first-time logins, forces password change
+    * - Updates first login status after password change
+    *
+    * @return User The authenticated User object if login successful,
+    *         null if authentication fails
+    * 
+    * Security Features:
+    * - Password verification through IChangePassword interface
+    * - Enforced password change for first-time logins
+    * - Clear success/failure feedback
+    */
     public User login() {
         System.out.println("Enter your login id: ");
         String loginId = scanner.nextLine();
