@@ -83,15 +83,28 @@ public class Prescription implements Serializable {
     public Status getStatus() {
         return this.prescriptionStatus;
     }
-
+   /**
+    * Gets the name of the prescribed medication.
+    *
+    * @return String The medication name
+    */
     public String getMedication() {
         return this.medication;
     }
-
+   /**
+    * Gets the prescribed quantity of medication.
+    *
+    * @return int The quantity prescribed
+    */
     public int getQuantity() {
         return this.quantity;
     }
 
+   /**
+    * Gets the ID of the associated appointment.
+    *
+    * @return String The appointment ID
+    */
     public String getAppointmentId() {
         return this.appointmentId;
     }

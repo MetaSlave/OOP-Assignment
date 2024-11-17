@@ -2,13 +2,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
+/**
+* Manages pharmacist-specific operations in the hospital management system.
+* This class implements multiple interfaces to handle various pharmacy tasks
+* including prescription management, medicine inventory, and replenishment requests.
+*/
 public class PharmacistManager implements IViewMedicineInventory, ICheckMedicineExists, IAuthChangePassword{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
-
+   /**
+    * Displays outcomes of all completed appointments including prescriptions.
+    * For each completed appointment, shows:
+    * - Date and time
+    * - Services provided
+    * - Prescribed medications and quantities
+    * - Consultation notes
+    */
     public void viewAppointmentOutcomeRecords() {
         // View appointment outcome records
         List<Appointment> completedAppointments = db.getAllAppointments()
@@ -36,6 +47,20 @@ public class PharmacistManager implements IViewMedicineInventory, ICheckMedicine
         }
     }
 
+   /**
+    * Manages the dispensing of pending prescriptions.
+    * This method:
+    * - Displays all pending prescriptions
+    * - Allows selection of prescriptions to dispense
+    * - Processes medication charges
+    * - Updates prescription status
+    * - Updates medicine inventory
+    *
+    * Handles input validation and provides appropriate error messages.
+    * Continues processing until all prescriptions are handled or user exits.
+    *
+    * @throws NumberFormatException Caught internally for invalid numeric input
+    */
     public void updatePrescriptionStatus() {
         // Update prescription status
         while (true) {
@@ -85,7 +110,16 @@ public class PharmacistManager implements IViewMedicineInventory, ICheckMedicine
         }
         
     }
-    
+   /**
+    * Creates a replenishment request for low-stock medicines.
+    * Validates:
+    * - Medicine existence in inventory
+    * - Current stock level is below alert threshold
+    * - Replenishment quantity is valid
+    *
+    * @param ph The Pharmacist creating the replenishment request
+    * @throws NumberFormatException Caught internally for invalid numeric input
+    */
     public void createReplenishmentRequest(Pharmacist ph) {
         // Create replenishment request
         // Input medicine name and check if it exists
@@ -121,7 +155,16 @@ public class PharmacistManager implements IViewMedicineInventory, ICheckMedicine
         }
         
     }
-
+   /**
+    * Processes charges for dispensed prescriptions.
+    * This method:
+    * - Calculates total cost based on medicine cost and quantity
+    * - Updates medicine inventory levels
+    * - Updates appointment outcome with prescription costs
+    * - Marks prescription as dispensed
+    *
+    * @param prescription The Prescription to be charged and dispensed
+    */
     public void chargePrescriptions(Prescription prescription) {
         Medicine medicine = db.getAllMedicines().get(prescription.getMedication());
         double cost = medicine.getMedicineCost() * prescription.getQuantity();

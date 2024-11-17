@@ -32,6 +32,29 @@ public class PatientUI extends AbstractAuthMenu{
         System.out.println("10. Logout");
     }
 
+   /**
+    * Launches the main patient interface with full functionality.
+    * This method:
+    * - Casts the provided User to Patient type
+    * - Creates a PatientManager instance for operations
+    * - Runs in a loop until logout is selected
+    * - Processes user input and delegates to appropriate manager methods
+    * 
+    * Provides access to:
+    * 1. Medical record management
+    * 2. Personal information updates
+    * 3. Appointment scheduling and viewing
+    * 4. Appointment outcome records
+    * 5. Password management
+    *
+    * Special handling for:
+    * - Appointment rescheduling (combines cancellation and scheduling)
+    * - Input validation with error messaging
+    * - Type-safe casting of User to Patient
+    *
+    * @param u The User object to be cast to Patient for medical operations.
+    * @throws NumberFormatException Caught internally when non-numeric input is provided
+    */
     @Override
     public void launchAuthMenu(User u) {
         // Downcast user to patient
