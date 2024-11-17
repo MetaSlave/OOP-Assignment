@@ -10,7 +10,7 @@ public interface ILaunchAuthMenu {
     * the user's permissions and role in the system.
     *
     * @param u The authenticated User object for whom the menu should be displayed.
-    *          The user's role and permissions determine which menu options are available.
+    *          The user's role determine which menu options are available.
     */
     void launchAuthMenu(User u);
 }

@@ -68,6 +68,7 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
         }
         else {
             Appointment appointment = db.getAllAppointments().stream()
+                .filter(a -> a.getPatientId() != null)
                 .filter(a -> a.getDoctorId().equals(d.getId()) && a.getPatientId().equals(patientId))
                 .findFirst()
                 .orElse(null);
