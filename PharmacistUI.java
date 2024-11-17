@@ -57,7 +57,7 @@ public class PharmacistUI extends AbstractAuthMenu{
                     newPharmacistManager.createReplenishmentRequest(ph);
                     break;
                 case 5:
-                    newPharmacistManager.changePassword(ph);
+                    newPharmacistManager.changePassword((User) ph);
                     break;
                 case 6:
                     loggedIn = false;

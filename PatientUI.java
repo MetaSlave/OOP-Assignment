@@ -80,7 +80,7 @@ public class PatientUI extends AbstractAuthMenu{
                     newPatientManager.viewAppointmentOutcomeRecords(p);
                     break;
                 case 9:
-                    newPatientManager.changePassword(p);
+                    newPatientManager.changePassword((User) p);
                     break;
                 case 10:
                     return;

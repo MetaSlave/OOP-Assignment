@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class PatientManager implements IViewMedicalRecord, IChangePassword{
+public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton
@@ -104,7 +104,7 @@ public class PatientManager implements IViewMedicalRecord, IChangePassword{
                 && a.getAppointmentTime().equals(finalParsedTime))
             .findFirst()
             .orElse(null);
-        
+
         if (appointment == null) {
             System.out.println("No appointment slot found for this doctor");
             return;

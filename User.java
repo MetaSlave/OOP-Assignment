@@ -4,7 +4,7 @@ import java.io.*;
  * Represents a user in the system with basic profile information and authentication capabilities.
  * This class implements Serializable to allow for object persistence.
  */
-public class User implements Serializable, IPasswordHasher{
+public class User implements Serializable, IHashPassword{
     private String id;
     private String name;
     private String password;

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class AdministratorManagerStaffUpdateManager {
+public class AdministratorManageStaffUpdateManager {
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
 

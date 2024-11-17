@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class PharmacistManager implements IViewMedicineInventory, ICheckMedicineExists, IChangePassword{
+public class PharmacistManager implements IViewMedicineInventory, ICheckMedicineExists, IAuthChangePassword{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton

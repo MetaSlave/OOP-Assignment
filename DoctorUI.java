@@ -76,7 +76,7 @@ public class DoctorUI extends AbstractAuthMenu {
                     newDoctorManager.recordAppointmentOutcome(d);
                     break;
                 case 9:
-                    newDoctorManager.changePassword(d);
+                    newDoctorManager.changePassword((User) d);
                     break;
                 case 10:
                     loggedIn = false;

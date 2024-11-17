@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class AdministratorManagerStaffUpdateUI extends AbstractAuthMenu{
+public class AdministratorManageStaffUpdateUI extends AbstractAuthMenu{
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
 
@@ -15,7 +15,7 @@ public class AdministratorManagerStaffUpdateUI extends AbstractAuthMenu{
     @Override
     public void launchAuthMenu(User u) {
         Staff staffToEdit = (Staff) u;
-        AdministratorManagerStaffUpdateManager newAdministratorManagerStaffUpdateManager = new AdministratorManagerStaffUpdateManager();
+        AdministratorManageStaffUpdateManager newAdministratorManagerStaffUpdateManager = new AdministratorManageStaffUpdateManager();
 
         while (true) {
             displayOptions();

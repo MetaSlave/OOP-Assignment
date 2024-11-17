@@ -58,7 +58,7 @@ public class AdministratorUI extends AbstractAuthMenu{
                     newAdminManager.approveReplenishmentRequests();
                     break;
                 case 5:
-                    newAdminManager.changePassword(admin);
+                    newAdminManager.changePassword((User) admin);
                 case 6:
                     loggedIn = false;
                     return;

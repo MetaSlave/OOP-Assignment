@@ -133,7 +133,7 @@ public class AdministratorManageStaffManager {
         }
 
         // Get instance of Update UI
-        AdministratorManagerStaffUpdateUI newAdministratorManagerStaffUpdateUI = new AdministratorManagerStaffUpdateUI();
+        AdministratorManageStaffUpdateUI newAdministratorManagerStaffUpdateUI = new AdministratorManageStaffUpdateUI();
         newAdministratorManagerStaffUpdateUI.launchAuthMenu(staffToUpdate);
     }
 

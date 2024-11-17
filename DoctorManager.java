@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointments, ICheckMedicineExists, IChangePassword {
+public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointments, ICheckMedicineExists, IAuthChangePassword {
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton
@@ -322,6 +322,7 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
 
         System.out.println("Appointment outcome created");
     }
+    
     public void cancelAppointment(Doctor d) {
         // Choose date
         String date;
