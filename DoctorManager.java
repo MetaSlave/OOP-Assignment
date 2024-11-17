@@ -95,7 +95,8 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
             .stream()
             .filter(a -> 
                 a.getDoctorId().equals(d.getId())
-                && !a.getAppointmentStatus().equals(Appointment.AppointmentStatus.COMPLETED))
+                && !a.getAppointmentStatus().equals(Appointment.AppointmentStatus.COMPLETED)
+                && !a.getAppointmentStatus().equals(Appointment.AppointmentStatus.CANCELLED))
             .collect(Collectors.toList());
 
         if (doctorAppointments.isEmpty()) {
@@ -156,7 +157,8 @@ public class DoctorManager implements IViewMedicalRecord, IViewScheduledAppointm
             .stream()
             .filter(a -> a.getDoctorId().equals(d.getId()) 
                 && a.getAppointmentDate().equals(finalParsedDate) 
-                && a.getAppointmentTime().equals(finalParsedTime))
+                && a.getAppointmentTime().equals(finalParsedTime)
+                && !a.getAppointmentStatus().equals(Appointment.AppointmentStatus.CANCELLED))
             .findFirst()
             .isPresent();
         
