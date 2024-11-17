@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class AdministratorManager implements ICheckMedicineExists, IViewMedicineInventory, IChangePassword{
+public class AdministratorManager implements ICheckMedicineExists, IViewMedicineInventory, IAuthChangePassword{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton
@@ -20,7 +20,7 @@ public class AdministratorManager implements ICheckMedicineExists, IViewMedicine
         // View and Manage Medication Inventory
         viewMedicineInventory();
         System.out.println("Enter a medicine name to update low stock alert level: ");
-        
+
         String medicine = scanner.nextLine();
 
         // Check if medicine exists

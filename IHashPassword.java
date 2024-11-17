@@ -1,7 +1,7 @@
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
 
-public interface IPasswordHasher {
+public interface IHashPassword {
     default String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public interface IChangePassword extends IPasswordHasher{
+public interface IChangePassword extends IHashPassword{
 /**
      * Allows a user to change their password after verifying their old password.
      * Prompts the user to enter the new password twice for confirmation.

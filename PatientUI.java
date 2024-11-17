@@ -21,7 +21,7 @@ public class PatientUI extends AbstractAuthMenu{
 
     @Override
     public void launchAuthMenu(User u) {
-        // Upcast user to patient
+        // Downcast user to patient
         Patient p = (Patient) u;
 
         boolean loggedIn = true;
@@ -80,7 +80,7 @@ public class PatientUI extends AbstractAuthMenu{
                     newPatientManager.viewAppointmentOutcomeRecords(p);
                     break;
                 case 9:
-                    newPatientManager.changePassword(p);
+                    newPatientManager.changePassword((User) p);
                     break;
                 case 10:
                     return;
