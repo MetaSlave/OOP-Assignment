@@ -1,19 +1,10 @@
 /**
-* Main class for the Hospital Management System (HMS).
-* This class serves as the entry point for the application, handling
-* initialization, data loading, user interface launching, and data persistence.
+* Main class for the Hospital Management System (HMS)
 */
 public class HMS {
    /**
-    * Main method that initializes and runs the Hospital Management System.
-    * This method:
-    * 1. Handles command-line initialization if requested
-    * 2. Loads existing system data
-    * 3. Launches the main user interface
-    * 4. Saves system data on exit
-    * 
-    * The system can be initialized with fresh data by passing "initialize"
-    * as a command-line argument. Otherwise, it attempts to load existing data.
+    * Main method that initializes and runs the Hospital Management System
+    * The system can be initialized with fresh data by passing "initialize" as a command-line argument. Otherwise, it attempts to load existing data
     *
     * @param args Command-line arguments. 
     *             If args[0] is "initialize", the system will be initialized with fresh data.

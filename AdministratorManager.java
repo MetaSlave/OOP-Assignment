@@ -2,10 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 /**
-* Manages administrative operations in the hospital management system.
-* This class implements multiple interfaces to handle various administrative tasks
-* including appointment viewing, medicine inventory management, and replenishment
-* request approvals.
+Handles administrative tasks in the hospital system like managing appointments, inventory, and approvals
 */
 public class AdministratorManager implements ICheckMedicineExists, IViewMedicineInventory, IAuthChangePassword{
     // Use database singleton
@@ -13,9 +10,8 @@ public class AdministratorManager implements ICheckMedicineExists, IViewMedicine
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
    /**
-    * Displays all appointments in the system.
-    * Lists complete details of every appointment, regardless of status,
-    * using the appointment's print method for formatting.
+    * Displays all appointments in the system
+    * Lists complete details of every appointment regardless of status
     */
     public void viewAppointmentDetails() {
         // View all appointment details
@@ -25,15 +21,7 @@ public class AdministratorManager implements ICheckMedicineExists, IViewMedicine
         }
     }
    /**
-    * Manages the medication inventory by allowing view and update operations.
-    * This method:
-    * - Displays the current medicine inventory
-    * - Allows updating low stock alert levels for specific medicines
-    * - Includes input validation for new alert levels
-    * - Provides confirmation messages for successful updates
-    *
-    * If the specified medicine doesn't exist, the operation is cancelled.
-    *
+    * Manages the medication inventory 
     * @throws NumberFormatException Caught internally when non-numeric input is provided
     */
     public void viewAndManageMedicationInventory() {
@@ -64,20 +52,8 @@ public class AdministratorManager implements ICheckMedicineExists, IViewMedicine
         System.out.println("Alert level for " + medicine + " sucessfully updated to " + newAlertLevel);
         
     }
-   /**
-    * Processes pending replenishment requests for medicines.
-    * This method provides a complete workflow for handling requests:
-    * - Displays all pending replenishment requests
-    * - Allows selection of specific requests for approval
-    * - Updates request status upon approval
-    * - Automatically updates medicine stock levels
-    * - Provides feedback for each action
-    * 
-    * The process continues until either:
-    * - All pending requests are handled
-    * - The administrator chooses to exit
-    * - An invalid selection is made
-    *
+  /**
+    *Processes pending replenishment requests 
     * @throws NumberFormatException Caught internally when non-numeric input is provided
     */
     public void approveReplenishmentRequests() {

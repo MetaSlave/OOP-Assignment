@@ -1,8 +1,6 @@
 import java.util.Scanner;
 /**
-* Manages administrative operations related to staff management in the hospital system.
-* This class provides functionality for adding, updating, and removing staff members,
-* including doctors, pharmacists, and administrators.
+* Manages administrative operations related to staff management in the hospital system
 */
 public class AdministratorManageStaffManager {
     // Use database singleton
@@ -11,13 +9,7 @@ public class AdministratorManageStaffManager {
     private final Scanner scanner = HMSInput.getInstance().getScanner();
 
     /**
-    * Adds a new staff member to the system.
-    * This method handles adding a new staff member:
-    * - Collects personal details (name, age, gender)
-    * - Assigns appropriate role (Doctor, Pharmacist, or Administrator)
-    * - Generates unique ID based on role and existing staff
-    * - Creates appropriate staff object based on role
-    * - Adds the new staff member to the database
+    * Adds a new staff member 
     */
     public void addNewStaff() {
         // Add new staff
@@ -129,13 +121,7 @@ public class AdministratorManageStaffManager {
         
     }
     /**
-    * Updates the details of an existing staff member.
-    * This method:
-    * - Verifies the staff ID exists
-    * - Confirms the user is not a patient
-    * - Launches the update UI for the selected staff member
-    *
-    * If the staff member is not found, appropriate error message is displayed.
+    * Updates the details of an existing staff member
     */
     public void updateStaffDetails() {
         // Update staff details (name, gender, age)
@@ -158,15 +144,7 @@ public class AdministratorManageStaffManager {
         newAdministratorManagerStaffUpdateUI.launchAuthMenu(staffToUpdate);
     }
    /**
-    * Removes a staff member from the system after necessary validations.
-    * Includes several safety checks:
-    * - Verifies the staff ID exists
-    * - For doctors: Checks for pending or scheduled appointments
-    * - For pharmacists: Checks for pending replenishment requests
-    * - Requires confirmation before removal
-    *
-    * Staff cannot be removed if they have pending responsibilities.
-    * Appropriate error messages are displayed for all validation failures.
+    * Removes a staff member. Staff with active tasks cannot be removed
     */
     public void removeStaff() {
         // Remove staff

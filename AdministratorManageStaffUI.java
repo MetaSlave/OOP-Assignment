@@ -1,20 +1,12 @@
 import java.util.Scanner;
 /**
-* Provides the user interface for administrator staff management operations.
-* This class extends AbstractAuthMenu to implement a menu-driven interface
-* for managing hospital staff members, including adding, updating, and removing staff.
+* Provides the user interface for administrator staff management operations
 */
-
 public class AdministratorManageStaffUI extends AbstractAuthMenu{
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
    /**
-    * Displays the staff management menu options.
-    * Shows a formatted list of all available staff management operations:
-    * - Adding new staff members
-    * - Updating existing staff details
-    * - Removing staff members
-    * - Returning to previous menu
+    * Displays the staff management menu options
     */
     @Override
     public void displayOptions() {
@@ -25,16 +17,11 @@ public class AdministratorManageStaffUI extends AbstractAuthMenu{
         System.out.println("4. Back");
     }
    /**
-    * Launches the staff management menu interface for authenticated administrators.
-    * This method:
-    * - Creates a staff manager instance to handle operations
-    * - Runs in a loop until user chooses to exit
-    * - Processes user input and delegates to appropriate manager methods
-    * - Handles invalid input with appropriate error messages
+    * Launches the staff management menu interface for authenticated administrators
     *
-    * @param u The authenticated User object (administrator) accessing the menu.
+    * @param u The authenticated User object (administrator) accessing the menu
     *          While not directly used in this implementation, it's maintained
-    *          for consistency with the interface and potential future use.
+    *          for consistency with the interface and potential future use
     */
     @Override
     public void launchAuthMenu(User u) {

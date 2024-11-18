@@ -4,9 +4,8 @@ import java.util.*;
 import java.io.*;
 
 /**
- * Represents a medical appointment in the system.
- * This class handles the scheduling, management, and tracking of appointments between doctors and patients.
- * Implements Serializable for persistent storage.
+ * This class manages medical appointments between doctors and patients in the system
+ * Implements Serializable for persistent storage
  */
 public class Appointment implements Serializable {
     /**

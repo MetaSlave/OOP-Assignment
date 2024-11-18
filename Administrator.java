@@ -2,9 +2,8 @@ import java.util.*;
 import java.io.*;
 
 /**
- * Represents an administrator in the healthcare system.
- * Extends the Staff class with administrator-specific functionality.
- * Implements serialization for persistent storage.
+ * Represents an administrator in the healthcare system
+ * Implements serialization for persistent storage
  */
 public class Administrator extends Staff {
     

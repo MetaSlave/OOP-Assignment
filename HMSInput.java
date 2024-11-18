@@ -1,8 +1,6 @@
 import java.util.Scanner;
 /**
-* Singleton class that manages system-wide scanner input.
-* Provides a centralized way to handle console input throughout the application,
-* ensuring only one Scanner instance is created for System.in to prevent resource leaks.
+* Manages the Hospital Management System scanner input
 */
 public class HMSInput {
     // Singleton instance
@@ -15,8 +13,8 @@ public class HMSInput {
     }
     
    /**
-    * Gets the singleton instance of HMSInput.
-    * Creates a new instance with an initialized Scanner if none exists.
+    * Gets the singleton instance of HMSInput
+    * Creates a new instance with an initialized Scanner if none exists
     *
     * @return The singleton HMSInput instance
     */
@@ -37,9 +35,8 @@ public class HMSInput {
         return scanner;
     }
     /**
-    * Closes the Scanner instance and releases system resources.
-    * Should be called when the application is shutting down
-    * to properly clean up the System.in resource.
+    * Closes the Scanner instance and releases system resources
+    * Should be called when the application is shutting down to properly clean up the System.in resource
     */
     public void closeScanner() {
         scanner.close();

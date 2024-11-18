@@ -2,9 +2,8 @@ import java.util.*;
 import java.io.*;
 
 /**
- * Represents a doctor in the healthcare system.
- * Extends the Staff class with doctor-specific functionality.
- * Implements serialization for persistent storage.
+ * Represents a doctor in the healthcare system
+ * Implements serialization for persistent storage
  */
 public class Doctor extends Staff {
     
