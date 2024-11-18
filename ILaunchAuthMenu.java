@@ -3,6 +3,7 @@
 */
 public interface ILaunchAuthMenu {
     /**
+    *  Launches an authenticated menu instance
     * @param u The authenticated User object for whom the menu should be displayed.
     */
     void launchAuthMenu(User u);

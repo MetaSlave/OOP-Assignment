@@ -31,10 +31,17 @@ public class Prescription implements Serializable {
     private Status prescriptionStatus;
 
     /**
-     * Enumeration of possible prescription statuses
+     * Status of prescriptions.
      */
     public static enum Status {
+        /**
+         * Prescription has not been dispensed
+         */
         PENDING,
+
+        /**
+         * Prescription has been dispensed
+         */
         DISPENSED
     }
 

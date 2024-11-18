@@ -46,68 +46,80 @@ public class User implements Serializable, IHashPassword{
         this.password = hashPassword("password");
         this.firstLogin = true;
     }
-    
     /**
-     * @return The user's unique identifier
+     * Gets user ID
+     * @return user ID
      */
     public String getId() {
         return this.id;
     }
 
     /**
-     * @return The user's role in the system
+     * Gets user role
+     * @return user role
      */
     public String getRole() {
         return this.role;
     }
 
     /**
-     * @return The user's full name
+     * Gets user name
+     * @return user name
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * @param name The new name to set
+     * Sets user name
+     * @param name user name to set
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @return The user's gender
+     * Gets user gender
+     * @return user gender
      */
     public String getGender() {
         return this.gender;
     }
 
     /**
-     * @param gender The new gender to set
+     * Sets user gender
+     * @param gender user gender to set
      */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
     /**
-     * @return The user's current password hashed
+     * Gets hashed password
+     * @return hashed password
      */
     public String getPassword() {
         return this.password;
     }
 
+    /**
+     * Sets new password
+     * @param newPasswordHash new hashed password to set
+     */
     public void setPassword(String newPasswordHash) {
         this.password = newPasswordHash;
     }
+
     /**
-     * @return true if this is the user's first login, false otherwise
+     * Checks if first login
+     * @return true if first login, false otherwise
      */
     public boolean getFirstLogin() {
         return this.firstLogin;
     }
 
     /**
-     * Sets the user's first login to false.
+     * Sets first login to false
      */
     public void setFirstLoginFalse() {
         this.firstLogin = false;

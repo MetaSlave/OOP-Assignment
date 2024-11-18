@@ -89,7 +89,7 @@ public class Patient extends User {
     /**
      * Updates the patient's contact nummber
      * 
-     * @param contact The new contact number
+     * @param contactNumber The new contact number
      */
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;

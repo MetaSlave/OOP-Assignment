@@ -35,10 +35,17 @@ public class ReplenishmentRequest implements Serializable {
     private ReplenishmentRequestStatus replenishmentStatus;
 
     /**
-     * Enumeration of possible replenishment request statuses.
+     * Status of replenishment requests.
      */
     public static enum ReplenishmentRequestStatus {
+        /**
+         * Request is waiting for approval
+         */
         PENDING,
+
+        /**
+         * Request has been approved
+         */
         APPROVED
     }
 

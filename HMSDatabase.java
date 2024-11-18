@@ -13,24 +13,28 @@ public class HMSDatabase {
     // Singleton instance
     private static HMSDatabase instance;
 
-    // List to store all users
+    /** List of all users in the system */
     private ArrayList<User> allUsers = new ArrayList<>();
-    // List to store all appointments
+
+    /** List of all appointments in the system */
     private ArrayList<Appointment> allAppointments = new ArrayList<>();
-    // List to store all replenishment requests
+
+    /** List of all replenishment requests in the system */
     private ArrayList<ReplenishmentRequest> allReplenishmentRequests = new ArrayList<>();
 
-    // Hashmap to store appointment outcomes
-    private Map<String, AppointmentOutcome> allAppointmentOutcomes = new HashMap<>();    // AppointmentId as Key
-    // Hashmap to store prescriptions
-    private Map<String, ArrayList<Prescription>> allPrescriptions = new HashMap<>();     // AppointmentId as Key
-    // Hashmap to store medical records
-    private Map<String, ArrayList<MedicalRecord>> allMedicalRecords = new HashMap<>();   // PatientId as Key
+    /** Map of appointment outcomes with appointment ID as key */
+    private Map<String, AppointmentOutcome> allAppointmentOutcomes = new HashMap<>();
 
-    // Hashmap to store medicine inventory
-    private Map<String, Medicine> allMedicines = new HashMap<>();                        // Medicine name as Key
+    /** Map of prescriptions with appointment ID as key */
+    private Map<String, ArrayList<Prescription>> allPrescriptions = new HashMap<>();
 
-    // Private constructor
+    /** Map of medical records with patient ID as key */
+    private Map<String, ArrayList<MedicalRecord>> allMedicalRecords = new HashMap<>();
+
+    /** Map of medicines with medicine name as key */
+    private Map<String, Medicine> allMedicines = new HashMap<>();
+
+    /** Private constructor to initialize data structures */
     private HMSDatabase() {
         allUsers = new ArrayList<>();
         allAppointments = new ArrayList<>();

@@ -7,19 +7,10 @@ public class PharmacistUI extends AbstractAuthMenu{
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
 
-    /**
-    * Launches the main pharmacist interface (runs in a loop until logout is selected)
-    * Provides access to:
-    * 1. Medical record and prescription viewing
-    * 2. Prescription status management
-    * 3. Medicine inventory monitoring
-    * 4. Stock replenishment requests
-    * 5. Password management
-    *
-    * @param u The User object to be cast to Pharmacist for pharmacy operations.
-    * @throws NumberFormatException Caught internally when non-numeric input is provided
+   /**
+    * Displays the main pharmacist menu options.
+    * Shows a formatted list of all available pharmacist operations
     */
-
     @Override
     public void displayOptions() {
         System.out.println("----PHARMACIST MENU----");
@@ -31,7 +22,11 @@ public class PharmacistUI extends AbstractAuthMenu{
         System.out.println("6. Logout");
     }
 
-   
+   /** 
+    * Launches the main pharmacist interface (runs in a loop until logout is selected)
+    * @param u The User object to be cast to Patient for medical operations.
+    * @throws NumberFormatException Caught internally when non-numeric input is provided
+    */
     @Override
     public void launchAuthMenu(User u) {
         // Downcast user to patient

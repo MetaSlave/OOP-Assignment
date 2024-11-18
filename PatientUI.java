@@ -24,7 +24,7 @@ public class PatientUI extends AbstractAuthMenu{
         System.out.println("10. Logout");
     }
 
-   /**
+   /** Launches the main patient interface (runs in a loop until logout is selected)
     * @param u The User object to be cast to Patient for medical operations.
     * @throws NumberFormatException Caught internally when non-numeric input is provided
     */

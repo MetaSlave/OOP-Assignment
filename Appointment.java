@@ -43,48 +43,31 @@ public class Appointment implements Serializable {
      */
     private AppointmentStatus appointmentStatus;
     /**
-     * Enumeration of possible appointment statuses in the scheduling system.
-     * This enum represents all valid states that an appointment can have during its lifecycle.
-     * 
-     * <p>The possible states are:
-     * <ul>
-     *     <li>{@link #SCHEDULED} - Appointment has been scheduled for a future date</li>
-     *     <li>{@link #PENDING} - Appointment is awaiting confirmation or validation</li>
-     *     <li>{@link #COMPLETED} - Appointment has been successfully completed</li>
-     *     <li>{@link #CANCELLED} - Appointment has been cancelled and will not occur</li>
-     *     <li>{@link #OPEN} - Time slot is available for scheduling</li>
-     * </ul>
-     * </p>
+     * Status of appointments in the scheduling system.
      */
     public static enum AppointmentStatus {
         /**
-         * Indicates that the appointment has been successfully scheduled.
-         * The time slot has been reserved and participants have been notified.
+         * Appointment is scheduled and confirmed
          */
         SCHEDULED,
 
         /**
-         * Indicates that the appointment is awaiting confirmation or additional information.
-         * The time slot is temporarily reserved but not finalized.
+         * Appointment needs confirmation
          */
         PENDING,
 
         /**
-         * Indicates that the appointment has been successfully completed.
-         * This is a terminal state and cannot be changed.
+         * Appointment has been completed
          */
         COMPLETED,
 
         /**
-         * Indicates that the appointment has been cancelled.
-         * The time slot may be available for new appointments.
-         * This is a terminal state and cannot be changed.
+         * Appointment has been cancelled
          */
         CANCELLED,
 
         /**
-         * Indicates that the time slot is available for scheduling.
-         * This is the initial state before an appointment is scheduled.
+         * Time slot is available
          */
         OPEN
     }

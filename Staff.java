@@ -2,6 +2,9 @@
  * Represents a staff member in the system
  */
 public class Staff extends User {
+    /**
+     * Represents a staff's age
+     */
     private int Age;
 
     /**
