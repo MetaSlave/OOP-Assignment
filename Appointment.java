@@ -9,22 +9,84 @@ import java.io.*;
  * Implements Serializable for persistent storage.
  */
 public class Appointment implements Serializable {
+    /**
+     * Unique identifier for the appointment.
+     */
     private String appointmentId;
-    private String patientId;  // Empty means slot hasn't been taken
-    private String doctorId;
-    private String doctorName;
-    private LocalDate appointmentDate;
-    private LocalTime appointmentTime;
-    private AppointmentStatus appointmentStatus;
 
     /**
-     * Enumeration of possible appointment statuses.
+     * ID of the patient. Empty string indicates available slot.
+     */
+    private String patientId;
+
+    /**
+     * ID of the doctor assigned to this appointment.
+     */
+    private String doctorId;
+
+    /**
+     * Name of the doctor conducting the appointment.
+     */
+    private String doctorName;
+
+    /**
+     * Date of the appointment.
+     */
+    private LocalDate appointmentDate;
+
+    /**
+     * Time of the appointment.
+     */
+    private LocalTime appointmentTime;
+
+    /**
+     * Current status of the appointment (OPEN, SCHEDULED, PENDING, COMPLETED, or CANCELLED).
+     */
+    private AppointmentStatus appointmentStatus;
+    /**
+     * Enumeration of possible appointment statuses in the scheduling system.
+     * This enum represents all valid states that an appointment can have during its lifecycle.
+     * 
+     * <p>The possible states are:
+     * <ul>
+     *     <li>{@link #SCHEDULED} - Appointment has been scheduled for a future date</li>
+     *     <li>{@link #PENDING} - Appointment is awaiting confirmation or validation</li>
+     *     <li>{@link #COMPLETED} - Appointment has been successfully completed</li>
+     *     <li>{@link #CANCELLED} - Appointment has been cancelled and will not occur</li>
+     *     <li>{@link #OPEN} - Time slot is available for scheduling</li>
+     * </ul>
+     * </p>
      */
     public static enum AppointmentStatus {
+        /**
+         * Indicates that the appointment has been successfully scheduled.
+         * The time slot has been reserved and participants have been notified.
+         */
         SCHEDULED,
+
+        /**
+         * Indicates that the appointment is awaiting confirmation or additional information.
+         * The time slot is temporarily reserved but not finalized.
+         */
         PENDING,
+
+        /**
+         * Indicates that the appointment has been successfully completed.
+         * This is a terminal state and cannot be changed.
+         */
         COMPLETED,
+
+        /**
+         * Indicates that the appointment has been cancelled.
+         * The time slot may be available for new appointments.
+         * This is a terminal state and cannot be changed.
+         */
         CANCELLED,
+
+        /**
+         * Indicates that the time slot is available for scheduling.
+         * This is the initial state before an appointment is scheduled.
+         */
         OPEN
     }
 

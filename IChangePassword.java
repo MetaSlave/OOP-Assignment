@@ -1,11 +1,15 @@
 import java.util.Scanner;
-
+/**
+ * Interface for handling password change functionality in the system.
+ * Extends IHashPassword to utilize password hashing capabilities.
+ */
 public interface IChangePassword extends IHashPassword{
 /**
      * Allows a user to change their password after verifying their old password.
      * Prompts the user to enter the new password twice for confirmation.
      * NOTE: USED ONLY FOR FIRST LOGIN
      *
+     * @param u The user who is logging in for the first time
      * @param oldPassword The current password for verification
      * @return true if password was successfully changed, false otherwise
      */

@@ -5,11 +5,29 @@ import java.io.*;
  * This class implements Serializable to allow for object persistence.
  */
 public class User implements Serializable, IHashPassword{
+    /**
+     * The unique identifier for the user
+     */
     private String id;
+    /**
+     * The user's name
+     */
     private String name;
+    /**
+     * The password stored as a hash for the user
+     */
     private String password;
+    /**
+     * The user's role, one of Doctor, Patient, Administrator, Pharmacist
+     */
     private String role;
+    /**
+     * The user's gender, Male or Female
+     */
     private String gender;
+    /**
+     * A boolean that is true if this is the user's first login, false otherwise
+     */
     private boolean firstLogin;
     
     /**
@@ -72,7 +90,7 @@ public class User implements Serializable, IHashPassword{
 
     /**
      * Sets the user's gender to a new value.
-     * @param Gender The new gender to set
+     * @param gender The new gender to set
      */
     public void setGender(String gender) {
         this.gender = gender;
