@@ -13,13 +13,35 @@ import java.util.Map;
  * This class implements Serializable for persistent storage of appointment outcomes.
  */
 public class AppointmentOutcome implements Serializable {
+    /**
+     * ID of the appointment.
+     */
     private String appointmentId;
-    private LocalDateTime outcomeDateTime;
-    private String servicesProvided;
-    private String consultationNotes;
-    private double appointmentCost;
-    public static final double APPOINTMENT_BASE_COST = 20;
 
+    /**
+     * Date and time when the appointment was completed.
+     */
+    private LocalDateTime outcomeDateTime;
+
+    /**
+     * List of services provided during the appointment.
+     */
+    private String servicesProvided;
+
+    /**
+     * Notes from the consultation/appointment.
+     */
+    private String consultationNotes;
+
+    /**
+     * Total cost of the appointment including services.
+     */
+    private double appointmentCost;
+
+    /**
+     * Base cost for any appointment before additional services.
+     */
+    public static final double APPOINTMENT_BASE_COST = 20;
     /**
      * Constructs a new AppointmentOutcome with the specified details.
      * The outcomeDateTime is automatically set to the current time.
