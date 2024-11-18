@@ -1,8 +1,8 @@
 import java.io.*;
 
 /**
- * Represents a user in the system with basic profile information and authentication capabilities.
- * This class implements Serializable to allow for object persistence.
+ * Represents a user in the system
+ * Implements Serializable for persistent storage
  */
 public class User implements Serializable, IHashPassword{
     /**
@@ -31,8 +31,7 @@ public class User implements Serializable, IHashPassword{
     private boolean firstLogin;
     
     /**
-     * Constructs a new User with specified attributes.
-     * Sets default password to "password" and FirstLogin flag accordingly.
+     * Constructs a new User with specified attributes (Default password is "password", changes upon first login, denoted by FirstLogin flag)
      *
      * @param id     The unique identifier for the user
      * @param role   The role/permission level of the user
@@ -49,7 +48,6 @@ public class User implements Serializable, IHashPassword{
     }
     
     /**
-     * Returns the user's ID.
      * @return The user's unique identifier
      */
     public String getId() {
@@ -57,7 +55,6 @@ public class User implements Serializable, IHashPassword{
     }
 
     /**
-     * Returns the user's role.
      * @return The user's role in the system
      */
     public String getRole() {
@@ -65,7 +62,6 @@ public class User implements Serializable, IHashPassword{
     }
 
     /**
-     * Returns the user's name.
      * @return The user's full name
      */
     public String getName() {
@@ -73,7 +69,6 @@ public class User implements Serializable, IHashPassword{
     }
 
     /**
-     * Sets the user's name to a new value.
      * @param name The new name to set
      */
     public void setName(String name) {
@@ -81,7 +76,6 @@ public class User implements Serializable, IHashPassword{
     }
 
     /**
-     * Returns the user's gender.
      * @return The user's gender
      */
     public String getGender() {
@@ -89,7 +83,6 @@ public class User implements Serializable, IHashPassword{
     }
 
     /**
-     * Sets the user's gender to a new value.
      * @param gender The new gender to set
      */
     public void setGender(String gender) {
@@ -97,7 +90,6 @@ public class User implements Serializable, IHashPassword{
     }
 
     /**
-     * Returns the user's password hashed.
      * @return The user's current password hashed
      */
     public String getPassword() {
@@ -108,7 +100,6 @@ public class User implements Serializable, IHashPassword{
         this.password = newPasswordHash;
     }
     /**
-     * Checks if this is the user's first login.
      * @return true if this is the user's first login, false otherwise
      */
     public boolean getFirstLogin() {

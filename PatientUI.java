@@ -1,21 +1,13 @@
 import java.util.Scanner;
 /**
 * Provides the main user interface for patient operations in the hospital system.
-* This class extends AbstractAuthMenu to implement a comprehensive menu system
-* allowing patients to manage their medical records, appointments, personal information,
-* and system settings.
 */
 public class PatientUI extends AbstractAuthMenu{
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
    /**
     * Displays the main patient menu options.
-    * Shows a formatted list of all available patient operations including:
-    * - Medical record viewing
-    * - Personal information management
-    * - Appointment scheduling and management
-    * - Appointment history viewing
-    * - Account settings
+    * Shows a formatted list of all available patient operations
     */
     @Override
     public void displayOptions() {
@@ -33,25 +25,6 @@ public class PatientUI extends AbstractAuthMenu{
     }
 
    /**
-    * Launches the main patient interface with full functionality.
-    * This method:
-    * - Casts the provided User to Patient type
-    * - Creates a PatientManager instance for operations
-    * - Runs in a loop until logout is selected
-    * - Processes user input and delegates to appropriate manager methods
-    * 
-    * Provides access to:
-    * 1. Medical record management
-    * 2. Personal information updates
-    * 3. Appointment scheduling and viewing
-    * 4. Appointment outcome records
-    * 5. Password management
-    *
-    * Special handling for:
-    * - Appointment rescheduling (combines cancellation and scheduling)
-    * - Input validation with error messaging
-    * - Type-safe casting of User to Patient
-    *
     * @param u The User object to be cast to Patient for medical operations.
     * @throws NumberFormatException Caught internally when non-numeric input is provided
     */

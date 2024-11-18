@@ -11,8 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents a medical record in the healthcare system.
- * Contains patient diagnosis, treatment information, and tracking of updates.
+ * Represents a medical record (contains patient diagnosis, treatment info and tracking of updates)
  * Implements Serializable for persistent storage.
  */
 public class MedicalRecord implements Serializable {
@@ -22,9 +21,8 @@ public class MedicalRecord implements Serializable {
     private LocalDateTime updated;
 
     /**
-     * Constructs a new MedicalRecord with the specified details.
-     * Sets the update timestamp to the current date and time.
-     *
+     * Creates a new medical record with user-specified details
+     * 
      * @param patientId The ID of the patient this record belongs to
      * @param diagnosis The medical diagnosis
      * @param treatment The prescribed treatment
@@ -53,8 +51,7 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * Serializes medical records to a file.
-     * Creates a new HashMap to ensure serializability.
+     * Using a new HashMap to serialize medical records to a file
      * 
      * @param allMedicalRecords Map of medical records to serialize
      * @return true if serialization is successful, false otherwise
@@ -83,8 +80,7 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * Prints the details of the medical record to the console.
-     * Includes diagnosis, treatment, and update date.
+     * Prints details of the medical record (diagnosis, treatment, update date, etc.)
      */
     public void print() {
         System.out.println("Updated: " + this.updated.format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss")));

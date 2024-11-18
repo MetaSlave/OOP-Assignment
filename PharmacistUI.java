@@ -1,23 +1,25 @@
 import java.util.Scanner;
 /**
-* Provides the main user interface for pharmacist operations in the hospital system.
-* This class extends AbstractAuthMenu to implement a comprehensive menu system
-* allowing pharmacists to manage prescriptions, view medical records, monitor
-* inventory, and handle medication replenishment.
+* Provides the main user interface for pharmacist operations in the HMS
+* Allows pharmacist to manage prescriptions, view medical records, monitor inventory, etc.
 */
 public class PharmacistUI extends AbstractAuthMenu{
     // Use scanner singleton
     private final Scanner scanner = HMSInput.getInstance().getScanner();
 
-   /**
-    * Displays the main pharmacist menu options.
-    * Shows a formatted list of all available pharmacy operations including:
-    * - Appointment outcome viewing
-    * - Prescription management
-    * - Inventory monitoring
-    * - Replenishment request submission
-    * - Account settings
+    /**
+    * Launches the main pharmacist interface (runs in a loop until logout is selected)
+    * Provides access to:
+    * 1. Medical record and prescription viewing
+    * 2. Prescription status management
+    * 3. Medicine inventory monitoring
+    * 4. Stock replenishment requests
+    * 5. Password management
+    *
+    * @param u The User object to be cast to Pharmacist for pharmacy operations.
+    * @throws NumberFormatException Caught internally when non-numeric input is provided
     */
+
     @Override
     public void displayOptions() {
         System.out.println("----PHARMACIST MENU----");
@@ -29,24 +31,7 @@ public class PharmacistUI extends AbstractAuthMenu{
         System.out.println("6. Logout");
     }
 
-   /**
-    * Launches the main pharmacist interface with full functionality.
-    * This method:
-    * - Casts the provided User to Pharmacist type
-    * - Creates a PharmacistManager instance for operations
-    * - Runs in a loop until logout is selected
-    * - Processes user input and delegates to appropriate manager methods
-    * 
-    * Provides access to:
-    * 1. Medical record and prescription viewing
-    * 2. Prescription status management
-    * 3. Medicine inventory monitoring
-    * 4. Stock replenishment requests
-    * 5. Password management
-    *
-    * @param u The User object to be cast to Pharmacist for pharmacy operations.
-    * @throws NumberFormatException Caught internally when non-numeric input is provided
-    */
+   
     @Override
     public void launchAuthMenu(User u) {
         // Downcast user to patient

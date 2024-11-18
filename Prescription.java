@@ -9,9 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents a medical prescription issued during an appointment.
- * Tracks medication details, quantity, and dispensing status.
- * Implements Serializable for persistent storage.
+ * Tracks medication details, quantity, and dispensing status
+ * Implements Serializable for persistent storage
  */
 public class Prescription implements Serializable {
     private String appointmentId;
@@ -20,7 +19,7 @@ public class Prescription implements Serializable {
     private Status prescriptionStatus;
 
     /**
-     * Enumeration of possible prescription statuses.
+     * Enumeration of possible prescription statuses
      */
     public static enum Status {
         PENDING,
@@ -28,8 +27,7 @@ public class Prescription implements Serializable {
     }
 
     /**
-     * Constructs a new Prescription with the specified details.
-     * Initial status is set to PENDING.
+     * Constructs a new Prescription with the specified details (initial status is pending)
      *
      * @param appointmentId The ID of the associated appointment
      * @param medication The name of the prescribed medication
@@ -130,7 +128,6 @@ public class Prescription implements Serializable {
 
     /**
      * Prints the details of the prescription to the console.
-     * Includes medication name, quantity, and status.
      */
     public void print() {
         System.out.println("Medication: " + this.medication);

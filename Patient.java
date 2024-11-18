@@ -1,12 +1,11 @@
-import java.util.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
- * Represents a patient in the healthcare system.
- * Extends the User class with patient-specific attributes and functionality.
- * Includes personal and medical information such as blood type and contact details.
+ * Represents a patient in the healthcare system
+ * Includes personal and medical information such as blood type and contact details
  */
 public class Patient extends User {
     private String bloodType;
@@ -15,8 +14,7 @@ public class Patient extends User {
     private String contactNumber;
 
     /**
-     * Constructs a new Patient with the specified attributes.
-     * Contact information is initially set to an empty string.
+     * Constructs a new Patient with the specified attributes (Contact info is empty by default)
      *
      * @param id The unique identifier for the patient
      * @param role The role in the system (typically "Patient")
@@ -86,8 +84,7 @@ public class Patient extends User {
     }
 
     /**
-     * Prints the details of the patient to the console.
-     * Includes patient ID, role, name, gender, blood type, date of birth, email, and contact information.
+     * Prints patient details (patient ID, role, name, gender, blood type, date of birth, email, etc.)
      */
     public void print() {
         System.out.println("Id: " + this.getId());

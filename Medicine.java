@@ -8,8 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents a medicine in the pharmacy inventory system.
- * Tracks medicine details including stock levels and alert thresholds.
+ * Tracks and prints medicine details (name, quantity, stock level alert) to the console
  * Implements Serializable for persistent storage.
  */
 public class Medicine implements Serializable {
@@ -50,8 +49,7 @@ public class Medicine implements Serializable {
     }
 
     /**
-     * Serializes medicine data to a file.
-     * Creates a new HashMap to ensure serializability.
+     * Using a new HashMap to serialize medical records to a file
      * 
      * @param allMedicines Map of medicines to serialize
      * @return true if serialization is successful, false otherwise
@@ -114,8 +112,7 @@ public class Medicine implements Serializable {
     }
 
     /**
-     * Prints the details of the medicine to the console.
-     * Includes medicine name, stock quantity, and stock level alert.
+     * Prints medicine details (name, quantity, stock level alert) to the console
      */
     public void print() {
         System.out.println("Medicine Name: " + this.medicineName);

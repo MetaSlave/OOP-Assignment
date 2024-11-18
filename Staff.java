@@ -1,6 +1,5 @@
 /**
- * Represents a staff member in the system, extending the base User class with additional
- * staff-specific attributes and functionality.
+ * Represents a staff member in the system
  */
 public class Staff extends User {
     private int Age;
@@ -21,7 +20,6 @@ public class Staff extends User {
 
     /**
      * Creates and returns a new Staff instance with the specified attributes.
-     * This factory method provides an alternative way to create Staff objects.
      *
      * @param id     The unique identifier for the staff member
      * @param role   The role/position of the staff member
@@ -36,9 +34,6 @@ public class Staff extends User {
     }
 
     /**
-     * Updates the staff member's name.
-     * Delegates to the parent class's SetName method.
-     *
      * @param updatedName The new name to set for the staff member
      */
     public void setName(String updatedName) {
@@ -46,9 +41,7 @@ public class Staff extends User {
     }
 
     /**
-     * Updates the staff member's gender.
-     * Delegates to the parent class's SetGender method.
-     *
+
      * @param updatedGender The new gender to set for the staff member
      */
     public void setGender(String updatedGender) {
@@ -56,8 +49,6 @@ public class Staff extends User {
     }
 
     /**
-     * Updates the staff member's age.
-     *
      * @param updatedAge The new age to set for the staff member
      */
     public void setAge(int updatedAge) {
@@ -66,7 +57,6 @@ public class Staff extends User {
 
     /**
      * Prints all details of the staff member to the console.
-     * Includes ID, role, name, gender, and age.
      */
     public void print() {
         System.out.println("Id: " + this.getId());

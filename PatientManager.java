@@ -8,10 +8,7 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 /**
-* Manages patient-specific operations in the hospital management system.
-* This class implements multiple interfaces to handle various patient tasks
-* including medical record viewing, appointment management, and personal
-* information updates.
+* Manages patient-specific operations (medical record viewing, appointment management, personal info updates) by implementing multiple interfaces
 */
 public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
     // Use database singleton
@@ -39,10 +36,7 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
         }
     }
    /**
-    * Updates a patient's contact information.
-    * Allows modification of:
-    * - Email address
-    * - Contact number
+    * Updates a patient's contact information (email address, contact number)
     *
     * @param p The Patient whose contact details should be updated
     */
@@ -57,8 +51,8 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
         
     }
    /**
-    * Displays all available (open) appointment slots in the system.
-    * Shows only appointments that have not been booked or requested by any patient.
+    * Displays available (open) appointment slots in the system
+    * Shows appointments that have not been booked or requested by any patient
     */
     public void viewAppointmentSlots() {
         List<Appointment> openAppointments = db.getAllAppointments()
@@ -80,11 +74,7 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
     }
    /**
     * Schedules an appointment for a patient with a specified doctor.
-    * Validates:
-    * - Doctor ID existence
-    * - Date format and validity
-    * - Time format and validity
-    * - Slot availability
+    * Validation added for Doctor ID existence, date validity, time validity, etc.
     *
     * @param p The Patient scheduling the appointment
     * @throws DateTimeParseException Caught internally for invalid date/time formats
@@ -148,13 +138,7 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
     }
 
    /**
-    * Cancels a scheduled or pending appointment for a patient.
-    * Allows cancellation only if:
-    * - Appointment exists
-    * - Appointment is in PENDING or SCHEDULED status
-    * - Patient ID matches
-    * - Doctor ID matches
-    * - Date and time match
+    * Cancels a scheduled or pending appointment for a patient
     *
     * @param p The Patient cancelling the appointment
     * @return boolean True if cancellation successful, false if appointment not found
@@ -247,13 +231,7 @@ public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
         }
     }
    /**
-    * Displays outcomes of all completed appointments for a patient.
-    * For each completed appointment, shows:
-    * - Date and time
-    * - Services provided
-    * - Prescriptions
-    * - Appointment cost
-    * - Consultation notes
+    * Displays details of all completed appointments (date and time, services provided, etc.) for a patient
     *
     * @param p The Patient whose appointment outcomes should be displayed
     */

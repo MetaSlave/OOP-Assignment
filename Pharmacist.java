@@ -1,15 +1,14 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 /**
- * Represents a pharmacist in the healthcare system.
- * Extends the Staff class with pharmacist-specific functionality.
- * Implements serialization for persistent storage.
+ * Represents a pharmacist in the healthcare system
+ * Implements Serializable for persistent storage
  */
 public class Pharmacist extends Staff {
     
     /**
-     * Constructs a new Pharmacist with the specified attributes.
+     * Constructs a new Pharmacist with the specified attributes
      *
      * @param id The unique identifier for the pharmacist
      * @param role The role/position of the pharmacist

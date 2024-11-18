@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Represents a request for medicine replenishment in the pharmacy system.
  * Tracks details about the requested medicine, quantity, requesting pharmacist, and request status.
  * Implements Serializable for persistent storage.
  */
@@ -143,8 +142,7 @@ public class ReplenishmentRequest implements Serializable {
     }
 
     /**
-     * Prints all details of the replenishment request to the console.
-     * Includes medication name, request amount, request date, request by, and status.
+     * Prints all details of the replenishment request to the console
      */
     public void print() {
         System.out.println("Medication: " + this.medicineName);
