@@ -15,9 +15,21 @@ import java.util.Map;
  * Implements Serializable for persistent storage.
  */
 public class MedicalRecord implements Serializable {
+    /**
+     * ID of the patient. Empty string indicates available slot.
+     */
     private String patientId;
+    /**
+     * Diagnosis of the patient
+     */
     private String diagnosis;
+    /**
+     * Treatment of the patient
+     */
     private String treatment;
+    /**
+     * Update time of the medical record
+     */
     private LocalDateTime updated;
 
     /**

@@ -12,9 +12,21 @@ import java.util.Map;
  * Implements Serializable for persistent storage.
  */
 public class Medicine implements Serializable {
+    /**
+     * Name of medicine
+     */
     private String medicineName;
+    /**
+     * Price of medicine
+     */
     private double medicineCost;
+    /**
+     * Current stock quantity of medicine
+     */
     private int stock;
+    /**
+     * Low stock level alert threshold of medicine
+     */
     private int alertBelow;
 
    /**

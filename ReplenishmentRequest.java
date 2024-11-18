@@ -13,10 +13,25 @@ import java.util.ArrayList;
  * Implements Serializable for persistent storage.
  */
 public class ReplenishmentRequest implements Serializable {
+    /**
+     * Pharmacist ID of Pharmacist doing the replenishment request
+     */
     private String pharmacistId;
+    /**
+     * Name of medicine requested
+     */
     private String medicineName;
+    /**
+     * Amount of specified medicine requested
+     */
     private int requestAmount;
+    /**
+     * Date of replenishment request
+     */
     private LocalDateTime requestDate;
+    /**
+     * Status of the replenishment request
+     */
     private ReplenishmentRequestStatus replenishmentStatus;
 
     /**

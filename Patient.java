@@ -8,9 +8,21 @@ import java.util.*;
  * Includes personal and medical information such as blood type and contact details
  */
 public class Patient extends User {
+    /**
+     * Blood type of patient
+     */
     private String bloodType;
+    /**
+     * Date of birth of patient
+     */
     private LocalDate dateOfBirth;
+    /**
+     * Email address of patient
+     */
     private String email;
+    /**
+     * Contact number of patient
+     */
     private String contactNumber;
 
     /**

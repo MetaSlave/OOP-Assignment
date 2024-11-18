@@ -13,9 +13,21 @@ import java.util.Map;
  * Implements Serializable for persistent storage
  */
 public class Prescription implements Serializable {
+    /**
+     * Appointment ID for the prescription
+     */
     private String appointmentId;
+    /**
+     * Type of medication
+     */
     private String medication;
+    /**
+     * Quantity of medication
+     */
     private int quantity;
+    /**
+     * Prescription status (i.e. DISPENSED)
+     */
     private Status prescriptionStatus;
 
     /**
