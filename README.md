@@ -19,18 +19,5 @@ java HMS
 
 ## Documentation & Diagrams
 
-- Detailed documentation can be found in the `/html` folder
-- System diagrams are located in the `/diagram` folder
-  - Includes UML diagrams
-  - System architecture diagrams
-
-## Project Structure
-```
-project-root/
-│
-├── html/            # Documentation files
-│
-├── diagram/         # UML and system diagrams
-│
-└── src/            # Source code
-```
+- Detailed documentation can be found in the `/docs` folder
+- Diagrams are located in the `/diagram` folder
