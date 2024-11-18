@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
 * Manages patient-specific operations (medical record viewing, appointment management, personal info updates) by implementing multiple interfaces
 */
-public class PatientManager implements IViewMedicalRecord, IAuthChangePassword{
+public class PatientManager implements IViewMedicalRecord, IAuthChangePassword, IViewScheduledAppointments{
     // Use database singleton
     private final HMSDatabase db = HMSDatabase.getInstance();
     // Use scanner singleton
